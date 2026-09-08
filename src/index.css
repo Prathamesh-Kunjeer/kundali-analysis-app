@@ -9,22 +9,35 @@
 :root,
 [data-theme="dark"] {
   /* Surfaces — Celestial obsidian & midnight slate */
-  --surface-base:    #0c0d12;
-  --surface-raised:  #14161f;
-  --surface-overlay: #1c1f2b;
-  --surface-input:   #161824;
+  --surface-base:    #0c0e14;
+  --surface-raised:  #141722;
+  --surface-overlay: #1b1f2e;
+  --surface-input:   #171a27;
 
   /* Brand — Radiant celestial gold */
   --brand-500:  #d4a017;
-  --brand-400:  #e8b53b;
+  --brand-400:  #e5b22e;
   --brand-300:  #fcd874;
-  --brand-glow: rgba(232, 181, 59, 0.16);
-  --brand-glow-subtle: rgba(232, 181, 59, 0.08);
+  --brand-glow: rgba(229, 178, 46, 0.16);
+  --brand-glow-subtle: rgba(229, 178, 46, 0.08);
+
+  /* Semantic subtle colors */
+  --semantic-supportive-fg:     #68d391;
+  --semantic-supportive-bg:     rgba(40, 110, 59, 0.18);
+  --semantic-supportive-border: rgba(40, 110, 59, 0.38);
+
+  --semantic-challenging-fg:     #fc8181;
+  --semantic-challenging-bg:     rgba(168, 54, 38, 0.18);
+  --semantic-challenging-border: rgba(168, 54, 38, 0.38);
+
+  --semantic-neutral-fg:     #f6ad55;
+  --semantic-neutral-bg:     rgba(156, 106, 21, 0.18);
+  --semantic-neutral-border: rgba(156, 106, 21, 0.38);
 
   /* Semantic planet tints */
-  --benefic-bg:  rgba(56, 161, 105, 0.14);
+  --benefic-bg:  rgba(40, 110, 59, 0.18);
   --benefic-fg:  #68d391;
-  --malefic-bg:  rgba(229, 62, 62, 0.14);
+  --malefic-bg:  rgba(168, 54, 38, 0.18);
   --malefic-fg:  #fc8181;
 
   /* House element tints */
@@ -38,37 +51,37 @@
   --elem-water-fg: #7f9cf5;
 
   /* Status */
-  --success-bg: rgba(56, 161, 105, 0.14);
+  --success-bg: rgba(40, 110, 59, 0.18);
   --success-fg: #68d391;
-  --danger-bg:  rgba(229, 62, 62, 0.14);
+  --danger-bg:  rgba(168, 54, 38, 0.18);
   --danger-fg:  #fc8181;
-  --warn-bg:    rgba(236, 153, 75, 0.14);
+  --warn-bg:    rgba(156, 106, 21, 0.18);
   --warn-fg:    #f6ad55;
 
   /* Text */
-  --text-primary:   #f1f3f7;
-  --text-secondary: #b6b9c2;
-  --text-muted:     #6d717f;
-  --text-inverse:   #0c0d12;
+  --text-primary:   #f3f4f6;
+  --text-secondary: #b8bac4;
+  --text-muted:     #7e8494;
+  --text-inverse:   #0c0e14;
 
   /* Borders */
-  --border-brand:  rgba(232, 181, 59, 0.35);
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-strong: rgba(255, 255, 255, 0.15);
+  --border-brand:  rgba(229, 178, 46, 0.45);
+  --border-subtle: rgba(229, 216, 184, 0.15);
+  --border-strong: rgba(229, 216, 184, 0.28);
 
   /* Shadows */
   --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 2px 6px -1px rgba(0, 0, 0, 0.3);
-  --shadow-card-hover: 0 12px 32px -4px rgba(0, 0, 0, 0.65), 0 4px 12px -2px rgba(232, 181, 59, 0.18);
+  --shadow-card-hover: 0 12px 32px -4px rgba(0, 0, 0, 0.65), 0 4px 12px -2px rgba(229, 178, 46, 0.18);
   --shadow-elevated: 0 16px 40px -6px rgba(0, 0, 0, 0.75);
 
   /* Background gradients */
   --bg-body-gradient:
-    radial-gradient(ellipse 70% 45% at 50% -10%, rgba(232, 181, 59, 0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 45% at 50% -10%, rgba(229, 178, 46, 0.08) 0%, transparent 65%),
     radial-gradient(ellipse 60% 40% at 90% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 55%),
     radial-gradient(ellipse 50% 50% at 10% 90%, rgba(56, 161, 105, 0.04) 0%, transparent 55%);
 
   /* Scrollbar */
-  --scrollbar-track: #14161f;
+  --scrollbar-track: #141722;
   --scrollbar-thumb: #2d3040;
 
   /* Toggle track */
@@ -77,59 +90,77 @@
 
 /* ─── LIGHT THEME ──────────────────────────────────────────────────────────── */
 [data-theme="light"] {
-  --surface-base:    #f8f5ee;
-  --surface-raised:  #ffffff;
-  --surface-overlay: #f0e9dc;
-  --surface-input:   #eae2d3;
+  /* Surfaces — Warm ivory & pure white cards */
+  --surface-base:    #F6F2E9; /* Primary background */
+  --surface-raised:  #FFFFFF; /* Primary surface/cards */
+  --surface-overlay: #FBF8F1; /* Secondary surface */
+  --surface-input:   #FFFFFF;
 
-  --brand-500:  #b8860b;
-  --brand-400:  #c9940f;
-  --brand-300:  #dfa71b;
-  --brand-glow: rgba(184, 134, 11, 0.12);
-  --brand-glow-subtle: rgba(184, 134, 11, 0.06);
+  /* Brand — Accent gold */
+  --brand-500:  #B5840F;
+  --brand-400:  #C99716; /* Accent gold */
+  --brand-300:  #DFC058;
+  --brand-glow: rgba(201, 151, 22, 0.12);
+  --brand-glow-subtle: rgba(201, 151, 22, 0.05);
 
-  --benefic-bg:  rgba(39, 103, 73, 0.10);
-  --benefic-fg:  #276749;
-  --malefic-bg:  rgba(155, 28, 28, 0.10);
-  --malefic-fg:  #9b1c1c;
+  /* Semantic subtle colors */
+  --semantic-supportive-fg:     #23693D;
+  --semantic-supportive-bg:     #EDF7EE;
+  --semantic-supportive-border: #BCDDBE;
 
-  --elem-fire:  rgba(192, 75, 24, 0.10);
-  --elem-earth: rgba(72, 85, 42, 0.10);
-  --elem-air:   rgba(37, 99, 170, 0.10);
-  --elem-water: rgba(55, 65, 160, 0.10);
-  --elem-fire-fg:  #c04b18;
-  --elem-earth-fg: #556b2f;
-  --elem-air-fg:   #2563ab;
-  --elem-water-fg: #3730a3;
+  --semantic-challenging-fg:     #A83626;
+  --semantic-challenging-bg:     #FDF3F1;
+  --semantic-challenging-border: #F3C3BC;
 
-  --success-bg: rgba(39, 103, 73, 0.10);
-  --success-fg: #276749;
-  --danger-bg:  rgba(155, 28, 28, 0.10);
-  --danger-fg:  #9b1c1c;
-  --warn-bg:    rgba(146, 92, 28, 0.10);
-  --warn-fg:    #92651c;
+  --semantic-neutral-fg:     #9C6A15;
+  --semantic-neutral-bg:     #FEF9EB;
+  --semantic-neutral-border: #EED79D;
 
-  --text-primary:   #191612;
-  --text-secondary: #4a453e;
-  --text-muted:     #7c7468;
-  --text-inverse:   #f8f5ee;
+  /* Semantic planet tints */
+  --benefic-bg:  #EDF7EE;
+  --benefic-fg:  #23693D;
+  --malefic-bg:  #FDF3F1;
+  --malefic-fg:  #A83626;
 
-  --border-brand:  rgba(184, 134, 11, 0.35);
-  --border-subtle: rgba(0, 0, 0, 0.07);
-  --border-strong: rgba(0, 0, 0, 0.16);
+  /* House element tints */
+  --elem-fire:  rgba(192, 75, 24, 0.08);
+  --elem-earth: rgba(72, 85, 42, 0.08);
+  --elem-air:   rgba(37, 99, 170, 0.08);
+  --elem-water: rgba(55, 65, 160, 0.08);
+  --elem-fire-fg:  #B54314;
+  --elem-earth-fg: #4F632B;
+  --elem-air-fg:   #235C9E;
+  --elem-water-fg: #312E94;
 
-  --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  --shadow-card-hover: 0 12px 28px -4px rgba(0, 0, 0, 0.12), 0 4px 12px -2px rgba(184, 134, 11, 0.16);
-  --shadow-elevated: 0 12px 32px -4px rgba(0, 0, 0, 0.15);
+  /* Status */
+  --success-bg: #EDF7EE;
+  --success-fg: #23693D;
+  --danger-bg:  #FDF3F1;
+  --danger-fg:  #A83626;
+  --warn-bg:    #FEF9EB;
+  --warn-fg:    #9C6A15;
 
-  --bg-body-gradient:
-    radial-gradient(ellipse 70% 45% at 50% -10%, rgba(184, 134, 11, 0.07) 0%, transparent 65%),
-    radial-gradient(ellipse 60% 40% at 90% 50%, rgba(37, 99, 170, 0.04) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 50% at 10% 90%, rgba(39, 103, 73, 0.04) 0%, transparent 55%);
+  /* Text hierarchy */
+  --text-primary:   #24211D; /* Dark charcoal - primary headings, section headings, card titles */
+  --text-secondary: #4A463F; /* Dark warm-grey - body text & explanations */
+  --text-muted:     #6F6A62; /* Muted grey - metadata & helper text */
+  --text-inverse:   #F6F2E9;
 
-  --scrollbar-track: #f0e9dc;
-  --scrollbar-thumb: #c9bc9e;
-  --toggle-track: #dbd2c0;
+  /* Borders */
+  --border-brand:  #C99716;
+  --border-subtle: #E5D8B8; /* Borders */
+  --border-strong: #D6C8A5;
+
+  /* Clean subtle card shadows */
+  --shadow-card: 0 1px 3px rgba(36, 33, 29, 0.05), 0 3px 10px rgba(36, 33, 29, 0.03);
+  --shadow-card-hover: 0 4px 12px rgba(36, 33, 29, 0.08), 0 8px 24px rgba(201, 151, 22, 0.07);
+  --shadow-elevated: 0 10px 28px rgba(36, 33, 29, 0.10);
+
+  --bg-body-gradient: none;
+
+  --scrollbar-track: #F6F2E9;
+  --scrollbar-thumb: #D8CBB0;
+  --toggle-track: #E2D7C1;
 }
 
 /* ─── Semantic aliases (used by all components) ─────────────────────────────── */
@@ -149,13 +180,13 @@
   --gold-300:    var(--brand-300);
   --gold-glow:   var(--brand-glow);
 
-  --crimson-300: var(--danger-fg);
-  --crimson-400: var(--danger-fg);
-  --crimson-100: var(--danger-bg);
+  --crimson-300: var(--semantic-challenging-fg);
+  --crimson-400: var(--semantic-challenging-fg);
+  --crimson-100: var(--semantic-challenging-bg);
 
-  --teal-300: var(--success-fg);
-  --teal-400: var(--success-fg);
-  --teal-100: var(--success-bg);
+  --teal-300: var(--semantic-supportive-fg);
+  --teal-400: var(--semantic-supportive-fg);
+  --teal-100: var(--semantic-supportive-bg);
 
   --violet-300: #a78bfa;
   --violet-100: rgba(139, 92, 246, 0.12);
@@ -169,7 +200,7 @@
   --border-gold:   var(--border-brand);
   --border-subtle: var(--border-subtle);
 
-  --shadow-gold: 0 0 20px var(--brand-glow), 0 2px 12px rgba(0,0,0,0.3);
+  --shadow-gold: 0 0 16px var(--brand-glow), 0 2px 8px rgba(0,0,0,0.15);
   --shadow-card: var(--shadow-card);
 }
 
@@ -195,20 +226,45 @@ body {
 ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
 ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
 
-/* ─── Typography ────────────────────────────────────────────────────────────── */
+/* ─── Typography Hierarchy ─────────────────────────────────────────────────── */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-primary); /* Dark charcoal */
   line-height: 1.3;
 }
 
-h1 { font-size: clamp(1.25rem, 3.5vw, 1.75rem); }
-h2 { font-size: clamp(1rem, 2.5vw, 1.25rem); }
-h3 { font-size: 0.975rem; }
+h1 { font-size: clamp(1.25rem, 3.5vw, 1.75rem); font-weight: 800; }
+h2 { font-size: clamp(1.05rem, 2.5vw, 1.35rem); font-weight: 800; }
+h3 { font-size: 1rem; font-weight: 700; }
+h4 { font-size: 0.88rem; font-weight: 600; }
 
-p, li { color: var(--text-secondary); line-height: 1.7; }
+p, li { color: var(--text-secondary); line-height: 1.65; }
+
+/* Dedicated hierarchy classes: TITLE → INSIGHT → EXPLANATION → METADATA */
+.insight-title,
+.card-insight-title {
+  color: var(--brand-400); /* Gold for important insights */
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+}
+
+.explanation-text,
+.card-explanation {
+  color: var(--text-secondary); /* Dark warm-grey */
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.metadata-text,
+.card-metadata,
+.helper-text {
+  color: var(--text-muted); /* Muted grey */
+  font-size: 0.74rem;
+  font-weight: 500;
+}
 
 .sanskrit {
   font-family: var(--font-devanagari);
@@ -277,8 +333,9 @@ p, li { color: var(--text-secondary); line-height: 1.7; }
 
 .app-header h1 {
   font-size: 1.05rem;
-  color: var(--brand-400);
-  letter-spacing: 0.06em;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
   margin: 0;
 }
 
@@ -441,19 +498,20 @@ p, li { color: var(--text-secondary); line-height: 1.7; }
 
 .sidebar-brand-text h1 {
   font-family: var(--font-display);
-  font-size: 1.18rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--brand-400);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
   margin: 0;
   line-height: 1.15;
 }
 
 .sidebar-brand-text p {
   font-size: 0.68rem;
-  color: var(--text-muted);
+  color: var(--brand-400);
   margin: 0.15rem 0 0;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.06em;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
@@ -735,24 +793,14 @@ p, li { color: var(--text-secondary); line-height: 1.7; }
 }
 
 .card-hero {
-  background: linear-gradient(135deg, var(--surface-raised) 0%, var(--surface-overlay) 100%);
-  border: 1.5px solid var(--border-brand);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-top: 3.5px solid var(--brand-400);
   border-radius: var(--radius-xl);
-  padding: 1.6rem 1.8rem;
-  box-shadow: var(--shadow-card), 0 0 24px var(--brand-glow-subtle);
+  padding: 1.5rem 1.75rem;
+  box-shadow: var(--shadow-card);
   position: relative;
   overflow: hidden;
-}
-
-.card-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 240px;
-  height: 240px;
-  background: radial-gradient(circle at 100% 0%, var(--brand-glow) 0%, transparent 70%);
-  pointer-events: none;
 }
 
 .card-insight {
@@ -775,8 +823,9 @@ p, li { color: var(--text-secondary); line-height: 1.7; }
 
 .card-gold {
   background: var(--surface-raised);
-  border: 1px solid var(--border-brand);
-  box-shadow: 0 4px 20px var(--brand-glow-subtle);
+  border: 1px solid var(--border-subtle);
+  border-left: 3.5px solid var(--brand-400);
+  box-shadow: var(--shadow-card);
 }
 
 .card-header {
@@ -788,11 +837,12 @@ p, li { color: var(--text-secondary); line-height: 1.7; }
   border-bottom: 1px solid var(--border-subtle);
 }
 
+/* Card titles: Dark charcoal */
 .card-title {
   font-family: var(--font-display);
-  font-size: 0.88rem;
-  color: var(--brand-400);
-  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  color: var(--text-primary); /* Dark charcoal - clear visual hierarchy */
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   font-weight: 700;
   display: flex;
@@ -821,7 +871,7 @@ p, li { color: var(--text-secondary); line-height: 1.7; }
   position: sticky;
   top: 57px;
   z-index: 90;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   transition: background 0.25s ease;
   gap: 0.15rem;
 }
@@ -866,23 +916,23 @@ p, li { color: var(--text-secondary); line-height: 1.7; }
 .data-table th {
   font-family: var(--font-body);
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  padding: 0.55rem 0.7rem;
+  padding: 0.6rem 0.75rem;
   text-align: left;
-  border-bottom: 1px solid var(--border-brand);
+  border-bottom: 1.5px solid var(--border-subtle);
   background: var(--surface-overlay);
   position: sticky;
   top: 0;
 }
 
 .data-table td {
-  padding: 0.55rem 0.7rem;
+  padding: 0.6rem 0.75rem;
   border-bottom: 1px solid var(--border-subtle);
   color: var(--text-primary);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   vertical-align: middle;
 }
 
@@ -892,35 +942,45 @@ p, li { color: var(--text-secondary); line-height: 1.7; }
 
 .data-table tr:last-child td { border-bottom: none; }
 
-/* ─── Badges ────────────────────────────────────────────────────────────────── */
+/* ─── Semantic Badges ───────────────────────────────────────────────────────── */
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.2rem;
-  padding: 0.18rem 0.55rem;
+  gap: 0.25rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 100px;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.03em;
-  line-height: 1.4;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+}
+
+/* Subtle semantic badges */
+.badge-supportive,
+.badge-teal {
+  background: var(--semantic-supportive-bg);
+  color: var(--semantic-supportive-fg);
+  border: 1px solid var(--semantic-supportive-border);
+}
+
+.badge-challenging,
+.badge-crimson {
+  background: var(--semantic-challenging-bg);
+  color: var(--semantic-challenging-fg);
+  border: 1px solid var(--semantic-challenging-border);
+}
+
+.badge-neutral,
+.badge-amber {
+  background: var(--semantic-neutral-bg);
+  color: var(--semantic-neutral-fg);
+  border: 1px solid var(--semantic-neutral-border);
 }
 
 .badge-gold {
   background: var(--brand-glow);
   color: var(--brand-400);
   border: 1px solid var(--border-brand);
-}
-
-.badge-teal {
-  background: var(--success-bg);
-  color: var(--success-fg);
-  border: 1px solid rgba(56, 161, 105, 0.25);
-}
-
-.badge-crimson {
-  background: var(--danger-bg);
-  color: var(--danger-fg);
-  border: 1px solid rgba(229, 62, 62, 0.25);
 }
 
 .badge-violet {
@@ -931,7 +991,7 @@ p, li { color: var(--text-secondary); line-height: 1.7; }
 
 .badge-subtle {
   background: var(--surface-overlay);
-  color: var(--text-secondary);
+  color: var(--text-muted);
   border: 1px solid var(--border-subtle);
 }
 

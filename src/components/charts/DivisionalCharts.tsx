@@ -84,9 +84,10 @@ export default function DivisionalCharts({ chart }: Props) {
         className="card"
         style={{
           marginBottom: '1rem',
-          background: 'linear-gradient(135deg, var(--surface-overlay) 0%, var(--surface-raised) 100%)',
-          border: '1.5px solid var(--border-gold)',
-          padding: '0.9rem 1.15rem',
+          background: 'var(--surface-raised)',
+          border: '1px solid var(--border-subtle)',
+          borderTop: '3.5px solid var(--brand-400)',
+          padding: '1rem 1.25rem',
         }}
       >
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem' }}>
@@ -416,7 +417,8 @@ export default function DivisionalCharts({ chart }: Props) {
         <div
           className="card"
           style={{
-            border: '1.5px solid var(--border-gold)',
+            border: '1px solid var(--border-subtle)',
+            borderTop: '3.5px solid var(--brand-400)',
             background: 'var(--surface-raised)',
             padding: '1.25rem 1.35rem',
           }}
@@ -449,10 +451,10 @@ export default function DivisionalCharts({ chart }: Props) {
               <span
                 className={`badge ${
                   interpretation.overallTone === 'Supportive'
-                    ? 'badge-teal'
+                    ? 'badge-supportive'
                     : interpretation.overallTone === 'Challenging'
-                    ? 'badge-crimson'
-                    : 'badge-gold'
+                    ? 'badge-challenging'
+                    : 'badge-neutral'
                 }`}
                 style={{ fontSize: '0.78rem', padding: '0.25rem 0.65rem', fontWeight: 700 }}
               >
@@ -510,7 +512,7 @@ export default function DivisionalCharts({ chart }: Props) {
           >
             {/* Positive influences */}
             <div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#4aad78', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <div style={{ fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--semantic-supportive-fg)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                 <span>✨</span> {t('varga.positiveInfluences')}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
@@ -522,7 +524,7 @@ export default function DivisionalCharts({ chart }: Props) {
 
             {/* Things to watch */}
             <div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#e07b39', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <div style={{ fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--semantic-challenging-fg)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                 <span>💡</span> {t('varga.thingsToWatch')}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
@@ -602,11 +604,11 @@ export default function DivisionalCharts({ chart }: Props) {
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.5rem', fontSize: '0.8rem', marginTop: '0.4rem' }}>
                       <div style={{ background: 'var(--surface-overlay)', padding: '0.45rem 0.65rem', borderRadius: 'var(--radius-xs)' }}>
-                        <span style={{ color: '#4aad78', fontWeight: 600 }}>✦ {t('varga.positiveSide')} </span>
+                        <span style={{ color: 'var(--semantic-supportive-fg)', fontWeight: 600 }}>✦ {t('varga.positiveSide')} </span>
                         <span style={{ color: 'var(--text-secondary)' }}>{pi.positive}</span>
                       </div>
                       <div style={{ background: 'var(--surface-overlay)', padding: '0.45rem 0.65rem', borderRadius: 'var(--radius-xs)' }}>
-                        <span style={{ color: '#e07b39', fontWeight: 600 }}>✦ {t('varga.challengeToNavigate')} </span>
+                        <span style={{ color: 'var(--semantic-challenging-fg)', fontWeight: 600 }}>✦ {t('varga.challengeToNavigate')} </span>
                         <span style={{ color: 'var(--text-secondary)' }}>{pi.challenge}</span>
                       </div>
                     </div>
@@ -645,11 +647,11 @@ function ObservationCard({ item, icon }: { item: VargaObservation; icon: string 
       }}
     >
       <div style={{ fontWeight: 700, fontSize: '0.88rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <span>{icon}</span>
-        <span>{item.title}</span>
+        <span style={{ color: 'var(--brand-400)' }}>{icon}</span>
+        <span style={{ color: 'var(--text-primary)' }}>{item.title}</span>
       </div>
 
-      <p style={{ margin: '0.35rem 0 0.45rem', fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+      <p style={{ margin: '0.35rem 0 0.45rem', fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
         {item.explanation}
       </p>
 
@@ -692,8 +694,9 @@ function ObservationCard({ item, icon }: { item: VargaObservation; icon: string 
                 textAlign: 'left',
                 marginTop: '0.25rem',
                 fontSize: '0.72rem',
-                color: 'var(--brand-400)',
-                background: 'rgba(0, 0, 0, 0.25)',
+                color: 'var(--text-secondary)',
+                background: 'var(--surface-raised)',
+                border: '1px solid var(--border-subtle)',
                 padding: '0.35rem 0.6rem',
                 borderRadius: 'var(--radius-xs)',
                 fontFamily: 'monospace',

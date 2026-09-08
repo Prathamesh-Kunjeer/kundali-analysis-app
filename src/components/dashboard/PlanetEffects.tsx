@@ -88,13 +88,15 @@ function dignityPlainText(dignity: string, lang: string = 'en'): string {
   return d[dignity] || dignity;
 }
 
-function overallVerdict(analysis: PlanetAnalysis, lang: string = 'en'): { label: string; color: string; summary: string } {
+function overallVerdict(analysis: PlanetAnalysis, lang: string = 'en'): { label: string; color: string; bg: string; border: string; summary: string } {
   const { strengthLevel, functionalNature, isAfflicted, isExalted, isDebilitated, isCombust } = analysis;
 
   if ((isExalted || functionalNature === 'Yogakaraka') && strengthLevel === 'Strong') {
     return {
       label: lang === 'mr' ? 'अतिशय अनुकूल' : 'Highly Supportive',
-      color: '#4aad78',
+      color: 'var(--semantic-supportive-fg)',
+      bg: 'var(--semantic-supportive-bg)',
+      border: 'var(--semantic-supportive-border)',
       summary: lang === 'mr'
         ? 'हा ग्रह अतिशय उत्तम स्थितीत असून संबंधित जीवनक्षेत्रात शुभ फळ देण्याची मोठी शक्यता आहे.'
         : 'This planet is in excellent condition and likely to bring positive results in its areas of life.'
@@ -103,7 +105,9 @@ function overallVerdict(analysis: PlanetAnalysis, lang: string = 'en'): { label:
   if (isDebilitated || (isAfflicted && strengthLevel === 'Weak') || isCombust) {
     return {
       label: lang === 'mr' ? 'आव्हानात्मक' : 'Challenging',
-      color: '#d94f4f',
+      color: 'var(--semantic-challenging-fg)',
+      bg: 'var(--semantic-challenging-bg)',
+      border: 'var(--semantic-challenging-border)',
       summary: lang === 'mr'
         ? 'हा ग्रह अडचणीत असून संबंधित विषयांमध्ये विशेष सावधगिरी व अतिरिक्त प्रयत्नांची गरज आहे.'
         : 'This planet faces difficulties. Its themes may require extra effort or show up as areas of challenge.'
@@ -112,7 +116,9 @@ function overallVerdict(analysis: PlanetAnalysis, lang: string = 'en'): { label:
   if (strengthLevel === 'Strong' && !isAfflicted) {
     return {
       label: lang === 'mr' ? 'अनुकूल' : 'Supportive',
-      color: '#4aad78',
+      color: 'var(--semantic-supportive-fg)',
+      bg: 'var(--semantic-supportive-bg)',
+      border: 'var(--semantic-supportive-border)',
       summary: lang === 'mr'
         ? 'हा ग्रह चांगल्या स्थितीत असून संबंधित जीवनक्षेत्रात चांगले सहकार्य देईल.'
         : 'This planet is in good condition and generally supports its associated life areas.'
@@ -121,7 +127,9 @@ function overallVerdict(analysis: PlanetAnalysis, lang: string = 'en'): { label:
   if (functionalNature === 'Malefic') {
     return {
       label: lang === 'mr' ? 'मिश्र — काळजीपूर्वक हाताळा' : 'Mixed — Watch Carefully',
-      color: '#c9a227',
+      color: 'var(--semantic-neutral-fg)',
+      bg: 'var(--semantic-neutral-bg)',
+      border: 'var(--semantic-neutral-border)',
       summary: lang === 'mr'
         ? 'हा ग्रह काही आव्हाने निर्माण करू शकतो, परंतु योग्य शिस्तीने चांगले फळ मिळू शकते.'
         : 'This planet has a challenging functional role but may still produce results through discipline and effort.'
@@ -130,7 +138,9 @@ function overallVerdict(analysis: PlanetAnalysis, lang: string = 'en'): { label:
   if (strengthLevel === 'Weak') {
     return {
       label: lang === 'mr' ? 'लक्ष देण्याची गरज' : 'Needs Attention',
-      color: '#e07b39',
+      color: 'var(--semantic-challenging-fg)',
+      bg: 'var(--semantic-challenging-bg)',
+      border: 'var(--semantic-challenging-border)',
       summary: lang === 'mr'
         ? 'हा ग्रह काहीसा कमजोर आहे. संबंधित क्षेत्रात सजग राहून प्रयत्न करावेत.'
         : 'This planet is somewhat weakened. Conscious effort in its life areas may be needed.'
@@ -138,7 +148,9 @@ function overallVerdict(analysis: PlanetAnalysis, lang: string = 'en'): { label:
   }
   return {
     label: lang === 'mr' ? 'मिश्र' : 'Mixed',
-    color: '#c9a227',
+    color: 'var(--semantic-neutral-fg)',
+    bg: 'var(--semantic-neutral-bg)',
+    border: 'var(--semantic-neutral-border)',
     summary: lang === 'mr'
       ? 'या ग्रहाचे अनुकूल व आव्हानात्मक दोन्ही पैलू दिसून येतात.'
       : 'This planet shows both positive and challenging qualities — results depend on other chart factors.'
@@ -147,7 +159,7 @@ function overallVerdict(analysis: PlanetAnalysis, lang: string = 'en'): { label:
 
 function strengthBar(score: number) {
   const pct = Math.min(100, score);
-  const col = score >= 60 ? '#4aad78' : score >= 35 ? '#c9a227' : '#d94f4f';
+  const col = score >= 60 ? 'var(--semantic-supportive-fg)' : score >= 35 ? 'var(--semantic-neutral-fg)' : 'var(--semantic-challenging-fg)';
   return (
     <div style={{ display:'flex', alignItems:'center', gap:'0.5rem' }}>
       <div style={{ flex:1, height:6, borderRadius:3, background:'var(--surface-overlay)' }}>
@@ -241,10 +253,10 @@ function PlanetCard({ p, analysis, chart }: { p: Planet; analysis: PlanetAnalysi
           <div style={{ display:'flex', alignItems:'center', gap:'0.5rem', flexWrap:'wrap' }}>
             <h3 style={{ margin:0, fontSize:'1.05rem' }}>{formatPlanet(p)}</h3>
             <span style={{ fontSize:'0.78rem', color:'var(--text-muted)' }}>({meta.english} / {meta.sanskrit})</span>
-            <span className={`badge ${analysis.strengthLevel === 'Strong' ? 'badge-teal' : analysis.strengthLevel === 'Weak' ? 'badge-crimson' : 'badge-gold'}`}>
+            <span className={`badge ${analysis.strengthLevel === 'Strong' ? 'badge-supportive' : analysis.strengthLevel === 'Weak' ? 'badge-challenging' : 'badge-neutral'}`}>
               {analysis.strengthLevel === 'Strong' ? (language === 'mr' ? 'बलवान' : 'Strong') : analysis.strengthLevel === 'Weak' ? (language === 'mr' ? 'कमजोर' : 'Weak') : (language === 'mr' ? 'मध्यम' : 'Moderate')}
             </span>
-            <span style={{ background:`${verdict.color}22`, color:verdict.color, border:`1px solid ${verdict.color}55`, borderRadius:'var(--radius-xs)', padding:'0.15rem 0.55rem', fontSize:'0.72rem', fontWeight:600 }}>
+            <span style={{ background: verdict.bg, color: verdict.color, border: `1px solid ${verdict.border}`, borderRadius: 'var(--radius-xs)', padding: '0.15rem 0.55rem', fontSize: '0.72rem', fontWeight: 600 }}>
               {verdict.label}
             </span>
           </div>
@@ -272,9 +284,9 @@ function PlanetCard({ p, analysis, chart }: { p: Planet; analysis: PlanetAnalysi
           { icon:'❤', label: language === 'mr' ? 'नातेसंबंध' : 'Relationships', text:relNote },
           { icon:'🏥', label: language === 'mr' ? 'आरोग्य संकेत' : 'Health Signals', text:healthNote },
         ].map(({ icon, label, text }) => (
-          <div key={label} style={{ padding:'0.6rem 0.8rem', background:'var(--surface-overlay)', borderRadius:'var(--radius-sm)', fontSize:'0.8rem' }}>
-            <div style={{ fontWeight:600, color:'var(--text-primary)', marginBottom:'0.25rem' }}>{icon} {label}</div>
-            <div style={{ color:'var(--text-secondary)', lineHeight:1.55 }}>{text}</div>
+          <div key={label} style={{ padding:'0.65rem 0.85rem', background:'var(--surface-overlay)', border:'1px solid var(--border-subtle)', borderRadius:'var(--radius-sm)', fontSize:'0.8rem' }}>
+            <div style={{ fontWeight:700, color:'var(--text-primary)', marginBottom:'0.25rem' }}>{icon} {label}</div>
+            <div style={{ color:'var(--text-secondary)', lineHeight:1.6 }}>{text}</div>
           </div>
         ))}
       </div>
@@ -282,11 +294,12 @@ function PlanetCard({ p, analysis, chart }: { p: Planet; analysis: PlanetAnalysi
       {/* Positive effects */}
       {positives.length > 0 && (
         <div style={{ marginBottom:'0.65rem' }}>
-          <div style={{ fontSize:'0.8rem', fontWeight:600, color:'#4aad78', marginBottom:'0.3rem' }}>
-            {language === 'mr' ? '✅ सकारात्मक पैलू' : '✅ Positive qualities'}
+          <div style={{ fontSize:'0.82rem', fontWeight:700, color:'var(--semantic-supportive-fg)', marginBottom:'0.3rem', display:'flex', alignItems:'center', gap:'0.3rem' }}>
+            <span>✅</span>
+            <span>{language === 'mr' ? 'सकारात्मक पैलू' : 'Positive qualities'}</span>
           </div>
           {positives.map((pt, i) => (
-            <div key={i} style={{ fontSize:'0.82rem', color:'var(--text-secondary)', marginLeft:'0.75rem', marginBottom:'0.15rem' }}>· {pt}</div>
+            <div key={i} style={{ fontSize:'0.84rem', color:'var(--text-secondary)', marginLeft:'0.75rem', marginBottom:'0.2rem', lineHeight:1.55 }}>· {pt}</div>
           ))}
         </div>
       )}
@@ -294,11 +307,12 @@ function PlanetCard({ p, analysis, chart }: { p: Planet; analysis: PlanetAnalysi
       {/* Challenges */}
       {challenges.length > 0 && (
         <div style={{ marginBottom:'0.65rem' }}>
-          <div style={{ fontSize:'0.8rem', fontWeight:600, color:'#e07b39', marginBottom:'0.3rem' }}>
-            {language === 'mr' ? '⚡ संभाव्य आव्हाने' : '⚡ Potential challenges'}
+          <div style={{ fontSize:'0.82rem', fontWeight:700, color:'var(--semantic-challenging-fg)', marginBottom:'0.3rem', display:'flex', alignItems:'center', gap:'0.3rem' }}>
+            <span>⚡</span>
+            <span>{language === 'mr' ? 'संभाव्य आव्हाने' : 'Potential challenges'}</span>
           </div>
           {challenges.map((ch, i) => (
-            <div key={i} style={{ fontSize:'0.82rem', color:'var(--text-secondary)', marginLeft:'0.75rem', marginBottom:'0.15rem' }}>· {ch}</div>
+            <div key={i} style={{ fontSize:'0.84rem', color:'var(--text-secondary)', marginLeft:'0.75rem', marginBottom:'0.2rem', lineHeight:1.55 }}>· {ch}</div>
           ))}
         </div>
       )}
@@ -308,8 +322,8 @@ function PlanetCard({ p, analysis, chart }: { p: Planet; analysis: PlanetAnalysi
         borderTop:'1px solid var(--border-subtle)', paddingTop:'0.65rem', marginTop:'0.5rem',
         display:'flex', alignItems:'flex-start', gap:'0.6rem',
       }}>
-        <div style={{ width:10, height:10, borderRadius:'50%', background:verdict.color, marginTop:4, flexShrink:0 }} />
-        <div style={{ fontSize:'0.83rem', color:'var(--text-secondary)', lineHeight:1.6 }}>
+        <div style={{ width:10, height:10, borderRadius:'50%', background:verdict.color, marginTop:5, flexShrink:0 }} />
+        <div style={{ fontSize:'0.84rem', color:'var(--text-secondary)', lineHeight:1.6 }}>
           <b style={{ color:verdict.color }}>{verdict.label}:</b> {verdict.summary}
         </div>
       </div>

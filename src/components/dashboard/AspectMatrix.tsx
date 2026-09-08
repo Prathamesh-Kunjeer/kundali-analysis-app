@@ -23,7 +23,7 @@ function influenceOf(
   fromPlanet: Planet,
   chart: KundaliChart,
   lang: string = 'en'
-): { label: string; color: string; why: string } {
+): { label: string; color: string; bg: string; border: string; why: string } {
   const analysis = chart.planetAnalysis[fromPlanet];
   const isNatBenefic = NATURAL_BENEFICS.has(fromPlanet);
   const isNatMalefic = NATURAL_MALEFICS.has(fromPlanet);
@@ -38,7 +38,9 @@ function influenceOf(
   // Yogakaraka = highly supportive
   if (fnRole === 'Yogakaraka') return {
     label: isMr ? 'अनुकूल' : 'Supportive',
-    color:'#4aad78',
+    color: 'var(--semantic-supportive-fg)',
+    bg: 'var(--semantic-supportive-bg)',
+    border: 'var(--semantic-supportive-border)',
     why: isMr
       ? `${pName} हा तुमच्या लग्नासाठी विशेष शुभ (योगकारक) ग्रह असल्याने त्याची दृष्टी पोषक व लाभदायक ठरते.`
       : `${pName} is a special activating planet (Yogakaraka) for your rising sign and is naturally supportive here.`,
@@ -46,7 +48,9 @@ function influenceOf(
   // Strong natural benefic
   if (isNatBenefic && fnRole === 'Benefic' && strength !== 'Weak') return {
     label: isMr ? 'अनुकूल' : 'Supportive',
-    color:'#4aad78',
+    color: 'var(--semantic-supportive-fg)',
+    bg: 'var(--semantic-supportive-bg)',
+    border: 'var(--semantic-supportive-border)',
     why: isMr
       ? `${pName} हा नैसर्गिक शुभ ग्रह असून लग्नाला अनुकूल असल्याने त्याची दृष्टी रचनात्मक व शुभ मानली जाते.`
       : `${pName} is a natural benefic with a supportive role for your Lagna. Its influence tends to be constructive.`,
@@ -54,7 +58,9 @@ function influenceOf(
   // Weak natural benefic
   if (isNatBenefic && strength === 'Weak') return {
     label: isMr ? 'मिश्र' : 'Mixed',
-    color:'#c9a227',
+    color: 'var(--semantic-neutral-fg)',
+    bg: 'var(--semantic-neutral-bg)',
+    border: 'var(--semantic-neutral-border)',
     why: isMr
       ? `${pName} हा नैसर्गिक शुभ ग्रह असला तरी कुंडलीत काहीसा कमजोर असल्याने दृष्टीचा प्रभाव मध्यम राहतो.`
       : `${pName} is naturally supportive but is somewhat weakened in this chart, making its influence inconsistent.`,
@@ -62,7 +68,9 @@ function influenceOf(
   // Natural malefic, functional benefic
   if (isNatMalefic && fnRole === 'Benefic' && strength === 'Strong') return {
     label: isMr ? 'मिश्र' : 'Mixed',
-    color:'#c9a227',
+    color: 'var(--semantic-neutral-fg)',
+    bg: 'var(--semantic-neutral-bg)',
+    border: 'var(--semantic-neutral-border)',
     why: isMr
       ? `${pName} नैसर्गिक क्रूर ग्रह असला तरी लग्नासाठी शुभकारक असल्याने शिस्त व परिश्रमातून उत्तम फळ देतो.`
       : `${pName} is naturally a challenging planet, but its functional role here is positive. Results are mixed — discipline and pressure can ultimately be productive.`,
@@ -70,7 +78,9 @@ function influenceOf(
   // Functional malefic, afflicted
   if (fnRole === 'Malefic' && analysis?.isAfflicted) return {
     label: isMr ? 'आव्हानात्मक' : 'Challenging',
-    color:'#d94f4f',
+    color: 'var(--semantic-challenging-fg)',
+    bg: 'var(--semantic-challenging-bg)',
+    border: 'var(--semantic-challenging-border)',
     why: isMr
       ? `${pName} लग्नासाठी आव्हानात्मक भूमिकेत असून अडचणीत असल्याने संबंधित भावावर ताण निर्माण करू शकतो.`
       : `${pName} plays a challenging functional role for your Lagna and is itself under difficult influences, amplifying its pressure on whatever it aspects.`,
@@ -78,7 +88,9 @@ function influenceOf(
   // Natural malefic, functional malefic
   if (isNatMalefic && fnRole === 'Malefic') return {
     label: isMr ? 'आव्हानात्मक' : 'Challenging',
-    color:'#d94f4f',
+    color: 'var(--semantic-challenging-fg)',
+    bg: 'var(--semantic-challenging-bg)',
+    border: 'var(--semantic-challenging-border)',
     why: isMr
       ? `${pName} या पत्रिकेत क्रूर भूमिकेत असल्याने संबंधित भावात विलंब, परीक्षा किंवा कठोर परिश्रम आणू शकतो.`
       : `${pName} is both a natural and functional malefic here. Its aspects tend to create pressure, delays, or tests in the areas it touches.`,
@@ -86,7 +98,9 @@ function influenceOf(
   // Default: mixed
   return {
     label: isMr ? 'मिश्र' : 'Mixed',
-    color:'#c9a227',
+    color: 'var(--semantic-neutral-fg)',
+    bg: 'var(--semantic-neutral-bg)',
+    border: 'var(--semantic-neutral-border)',
     why: isMr
       ? `${pName} ग्रहाचा प्रभाव मिश्र स्वरूपाचा असून इतर ग्रह स्थितीवर अवलंबून राहील.`
       : `${pName}'s influence is mixed — it brings both constructive and challenging qualities depending on how the rest of the chart supports it.`,
@@ -197,7 +211,7 @@ function AspectCard({
         {/* Influence badge */}
         <span style={{
           padding:'0.25rem 0.75rem', borderRadius:'var(--radius-xs)', fontSize:'0.75rem', fontWeight:700,
-          background:`${inf.color}20`, color:inf.color, border:`1px solid ${inf.color}55`, flexShrink:0,
+          background: inf.bg, color: inf.color, border:`1px solid ${inf.border}`, flexShrink:0,
         }}>
           {inf.label}
         </span>
@@ -209,7 +223,7 @@ function AspectCard({
       </div>
 
       {/* Why the influence is what it is */}
-      <div style={{ fontSize:'0.83rem', color:'var(--text-secondary)', lineHeight:1.6, marginTop:'0.25rem' }}>
+      <div style={{ fontSize:'0.85rem', color:'var(--text-secondary)', lineHeight:1.6, marginTop:'0.25rem' }}>
         {targetPlanet && direction === 'cast'
           ? (language === 'mr'
               ? `${fromLabel} ग्रह या दृष्टीद्वारे ${formatPlanet(targetPlanet)} ग्रहावर थेट प्रभाव टाकतो. `
@@ -229,7 +243,7 @@ function AspectCard({
       {open && (
         <div style={{
           marginTop:'0.45rem', padding:'0.55rem 0.75rem',
-          background:'var(--surface-raised)', borderRadius:'var(--radius-xs)', fontSize:'0.76rem',
+          background:'var(--surface-overlay)', border:'1px solid var(--border-subtle)', borderRadius:'var(--radius-xs)', fontSize:'0.76rem',
         }}>
           <div className="info-row"><span className="label">{language === 'mr' ? 'दृष्टी नियम' : 'Aspect rule'}</span><span className="value">{aspect.rule}</span></div>
           <div className="info-row"><span className="label">{language === 'mr' ? 'दृष्टी टाकणारा ग्रह' : 'From planet'}</span><span className="value">{fromLabel} ({formatSign(fromSign)}, {language === 'mr' ? 'भाव' : 'House'} {fromHouse})</span></div>

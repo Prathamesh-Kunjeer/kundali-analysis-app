@@ -224,7 +224,7 @@ export default function Overview({ chart, onNavigate }: Props) {
         }}>
           {/* Lagna */}
           <div style={{
-            background:'var(--surface-raised)',
+            background:'var(--surface-overlay)',
             padding:'0.9rem 1.1rem',
             borderRadius:'var(--radius-md)',
             border:'1px solid var(--border-subtle)',
@@ -233,17 +233,17 @@ export default function Overview({ chart, onNavigate }: Props) {
             <div style={{ fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', letterSpacing:'0.06em', fontWeight:600 }}>
               🌅 {t('overview.natalLagna')}
             </div>
-            <div style={{ fontSize:'1.25rem', fontWeight:800, color:'var(--brand-400)', marginTop:'0.2rem' }}>
+            <div style={{ fontSize:'1.25rem', fontWeight:800, color:'var(--text-primary)', marginTop:'0.2rem' }}>
               {formatSign(lagnaSign)}
             </div>
             <div style={{ fontSize:'0.75rem', color:'var(--text-secondary)', marginTop:'0.15rem' }}>
-              {t('common.lord')}: <b>{formatPlanet(lagnaLord)}</b>
+              {t('common.lord')}: <b style={{ color:'var(--brand-400)' }}>{formatPlanet(lagnaLord)}</b>
             </div>
           </div>
 
           {/* Moon Sign */}
           <div style={{
-            background:'var(--surface-raised)',
+            background:'var(--surface-overlay)',
             padding:'0.9rem 1.1rem',
             borderRadius:'var(--radius-md)',
             border:'1px solid var(--border-subtle)',
@@ -252,7 +252,7 @@ export default function Overview({ chart, onNavigate }: Props) {
             <div style={{ fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', letterSpacing:'0.06em', fontWeight:600 }}>
               🌙 {t('overview.moonSign')}
             </div>
-            <div style={{ fontSize:'1.25rem', fontWeight:800, color:'#7b9fd4', marginTop:'0.2rem' }}>
+            <div style={{ fontSize:'1.25rem', fontWeight:800, color:'var(--text-primary)', marginTop:'0.2rem' }}>
               {formatSign(moonSign)}
             </div>
             <div style={{ fontSize:'0.75rem', color:'var(--text-secondary)', marginTop:'0.15rem' }}>
@@ -262,7 +262,7 @@ export default function Overview({ chart, onNavigate }: Props) {
 
           {/* Sun Sign */}
           <div style={{
-            background:'var(--surface-raised)',
+            background:'var(--surface-overlay)',
             padding:'0.9rem 1.1rem',
             borderRadius:'var(--radius-md)',
             border:'1px solid var(--border-subtle)',
@@ -271,7 +271,7 @@ export default function Overview({ chart, onNavigate }: Props) {
             <div style={{ fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', letterSpacing:'0.06em', fontWeight:600 }}>
               ☀️ {t('overview.sunSign')}
             </div>
-            <div style={{ fontSize:'1.25rem', fontWeight:800, color:'#e07b39', marginTop:'0.2rem' }}>
+            <div style={{ fontSize:'1.25rem', fontWeight:800, color:'var(--text-primary)', marginTop:'0.2rem' }}>
               {formatSign(sunSign)}
             </div>
             <div style={{ fontSize:'0.75rem', color:'var(--text-secondary)', marginTop:'0.15rem' }}>
@@ -281,7 +281,7 @@ export default function Overview({ chart, onNavigate }: Props) {
 
           {/* Nakshatra */}
           <div style={{
-            background:'var(--surface-raised)',
+            background:'var(--surface-overlay)',
             padding:'0.9rem 1.1rem',
             borderRadius:'var(--radius-md)',
             border:'1px solid var(--border-subtle)',
@@ -327,7 +327,11 @@ export default function Overview({ chart, onNavigate }: Props) {
 
           <div style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
             {themes.map((th, idx) => {
-              const borderCol = th.level === 'positive' ? '#4aad78' : th.level === 'caution' ? '#e07b39' : 'var(--brand-400)';
+              const borderCol = th.level === 'positive'
+                ? 'var(--semantic-supportive-border)'
+                : th.level === 'caution'
+                ? 'var(--semantic-challenging-border)'
+                : 'var(--semantic-neutral-border)';
               return (
                 <div
                   key={idx}
@@ -337,26 +341,26 @@ export default function Overview({ chart, onNavigate }: Props) {
                 >
                   <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:'0.5rem' }}>
                     <div style={{ display:'flex', alignItems:'center', gap:'0.5rem' }}>
-                      <span style={{ fontSize:'1.25rem' }}>{th.icon}</span>
-                      <span style={{ fontWeight:700, fontSize:'0.92rem', color:'var(--text-primary)' }}>{th.title}</span>
+                      <span style={{ fontSize:'1.2rem' }}>{th.icon}</span>
+                      <span style={{ fontWeight:700, fontSize:'0.94rem', color:'var(--text-primary)' }}>{th.title}</span>
                     </div>
-                    <span className={`badge ${th.level === 'positive' ? 'badge-teal' : th.level === 'caution' ? 'badge-crimson' : 'badge-gold'}`}>
+                    <span className={`badge ${th.level === 'positive' ? 'badge-supportive' : th.level === 'caution' ? 'badge-challenging' : 'badge-neutral'}`}>
                       {th.level === 'positive' ? (language === 'mr' ? 'शुभ / अनुकूल' : 'Supportive') : th.level === 'caution' ? (language === 'mr' ? 'सजगता आवश्यक' : 'Mindful') : (language === 'mr' ? 'मध्यम' : 'Neutral')}
                     </span>
                   </div>
 
-                  <div style={{ fontWeight:600, fontSize:'0.84rem', color:borderCol, marginTop:'0.1rem' }}>
+                  <div className="insight-title" style={{ marginTop:'0.15rem' }}>
                     {th.headline}
                   </div>
 
-                  <p style={{ fontSize:'0.83rem', color:'var(--text-secondary)', lineHeight:1.6, margin:0 }}>
+                  <p style={{ fontSize:'0.86rem', color:'var(--text-secondary)', lineHeight:1.65, margin:0 }}>
                     {th.body}
                   </p>
 
                   {th.targetTab && (
-                    <div style={{ fontSize:'0.75rem', fontWeight:600, color:'var(--brand-400)', marginTop:'0.3rem', display:'flex', alignItems:'center', gap:'0.3rem' }}>
+                    <div style={{ fontSize:'0.76rem', fontWeight:600, color:'var(--text-muted)', marginTop:'0.35rem', display:'flex', alignItems:'center', gap:'0.35rem' }}>
                       <span>{language === 'mr' ? 'सविस्तर विश्लेषण पहा' : 'Explore details'}</span>
-                      <span>→</span>
+                      <span style={{ color:'var(--brand-400)' }}>→</span>
                     </div>
                   )}
                 </div>
@@ -383,14 +387,14 @@ export default function Overview({ chart, onNavigate }: Props) {
                 <div style={{ display:'flex', alignItems:'center', gap:'0.75rem', marginBottom:'0.75rem' }}>
                   <div style={{
                     width:42, height:42, borderRadius:'50%',
-                    background:`${PC[curMaha.planet]}20`, border:`2px solid ${PC[curMaha.planet]}`,
+                    background:`${PC[curMaha.planet]}18`, border:`2px solid ${PC[curMaha.planet]}`,
                     display:'grid', placeItems:'center', fontSize:'1.25rem', color:PC[curMaha.planet],
                   }}>
                     {PLANET_LABELS[curMaha.planet]?.symbol ?? '🕐'}
                   </div>
                   <div>
-                    <div style={{ fontSize:'1.1rem', fontWeight:800, color:'var(--brand-400)' }}>
-                      {formatPlanet(curMaha.planet)} {language === 'mr' ? 'महादशा' : 'Mahadasha'}
+                    <div style={{ fontSize:'1.1rem', fontWeight:800, color:'var(--text-primary)' }}>
+                      <span style={{ color:'var(--brand-400)' }}>{formatPlanet(curMaha.planet)}</span> {language === 'mr' ? 'महादशा' : 'Mahadasha'}
                     </div>
                     <div style={{ fontSize:'0.78rem', color:'var(--text-muted)' }}>
                       {formatDate(curMaha.startDate, language)} — {formatDate(curMaha.endDate, language)}
@@ -419,14 +423,14 @@ export default function Overview({ chart, onNavigate }: Props) {
 
                 <div className="grid-2" style={{ gap:'0.6rem', fontSize:'0.8rem' }}>
                   {curAntar && (
-                    <div style={{ background:'var(--surface-overlay)', padding:'0.55rem 0.75rem', borderRadius:'var(--radius-sm)' }}>
+                    <div style={{ background:'var(--surface-overlay)', border:'1px solid var(--border-subtle)', padding:'0.55rem 0.75rem', borderRadius:'var(--radius-sm)' }}>
                       <div style={{ fontSize:'0.7rem', color:'var(--text-muted)' }}>{language === 'mr' ? 'अंतर्दशा' : 'Antardasha'}</div>
-                      <div style={{ fontWeight:700, color:'var(--brand-400)', marginTop:'0.1rem' }}>
-                        {formatPlanet(curAntar.planet)}
+                      <div style={{ fontWeight:700, color:'var(--text-primary)', marginTop:'0.1rem' }}>
+                        <span style={{ color:'var(--brand-400)' }}>{formatPlanet(curAntar.planet)}</span>
                       </div>
                     </div>
                   )}
-                  <div style={{ background:'var(--surface-overlay)', padding:'0.55rem 0.75rem', borderRadius:'var(--radius-sm)' }}>
+                  <div style={{ background:'var(--surface-overlay)', border:'1px solid var(--border-subtle)', padding:'0.55rem 0.75rem', borderRadius:'var(--radius-sm)' }}>
                     <div style={{ fontSize:'0.7rem', color:'var(--text-muted)' }}>{language === 'mr' ? 'जन्मावेळची शिल्लक' : 'Balance at birth'}</div>
                     <div style={{ fontWeight:700, color:'var(--text-primary)', marginTop:'0.1rem' }}>
                       {dasha.birthBalance.balanceYears}{language === 'mr' ? ' वर्षे ' : 'y '}{dasha.birthBalance.balanceMonths}{language === 'mr' ? ' महिने' : 'm'}
@@ -450,7 +454,7 @@ export default function Overview({ chart, onNavigate }: Props) {
                   {rajaYogas.length} {language === 'mr' ? 'योग' : 'detected'}
                 </span>
               </div>
-              <p style={{ fontSize:'0.8rem', color:'var(--text-muted)', marginBottom:'0.85rem', lineHeight:1.55 }}>
+              <p style={{ fontSize:'0.82rem', color:'var(--text-secondary)', marginBottom:'0.85rem', lineHeight:1.6 }}>
                 {language === 'mr'
                   ? 'हे कुंडलीतील विशेष शुभ ग्रह योग आहेत — जे जीवनात प्रगती आणि यश दर्शवतात.'
                   : 'Special planetary combinations indicating areas where your chart has notable potential.'}
@@ -462,13 +466,14 @@ export default function Overview({ chart, onNavigate }: Props) {
                     className="card-interactive"
                     style={{
                       padding:'0.45rem 0.85rem', borderRadius:'var(--radius-sm)',
-                      background:'var(--brand-glow)', border:'1px solid var(--border-brand)',
-                      fontSize:'0.8rem', color:'var(--brand-400)', fontWeight:600,
+                      background:'var(--surface-overlay)', border:'1px solid var(--border-subtle)',
+                      fontSize:'0.8rem', color:'var(--text-primary)', fontWeight:600,
                     }}
                     onClick={() => onNavigate && onNavigate('yogas')}
                   >
-                    ✨ {y.name}
-                    <span style={{ fontSize:'0.7rem', color:'var(--text-muted)', marginLeft:'0.4rem', fontWeight:400 }}>
+                    <span style={{ color:'var(--brand-400)', marginRight:'0.3rem' }}>✨</span>
+                    <span>{y.name}</span>
+                    <span style={{ fontSize:'0.7rem', color:'var(--text-muted)', marginLeft:'0.45rem', fontWeight:400 }}>
                       ({y.strength})
                     </span>
                   </div>

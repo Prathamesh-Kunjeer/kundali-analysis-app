@@ -7,17 +7,17 @@ interface Props { chart: KundaliChart; }
 
 const CATEGORY_COLORS: Record<string, string> = {
   Mahapurusha: 'var(--brand-400)',
-  RajaYoga: 'var(--brand-300)',
-  DhanaYoga: 'var(--teal-300)',
-  AuspiciousYoga: 'var(--teal-400)',
-  InauspiciousYoga: 'var(--danger-fg)',
-  VipareetsRajaYoga: 'var(--violet-300)',
+  RajaYoga: 'var(--brand-400)',
+  DhanaYoga: 'var(--semantic-supportive-fg)',
+  AuspiciousYoga: 'var(--semantic-supportive-fg)',
+  InauspiciousYoga: 'var(--semantic-challenging-fg)',
+  VipareetsRajaYoga: 'var(--semantic-neutral-fg)',
 };
 
 const STRENGTH_COLORS: Record<string, string> = {
-  Exceptional: 'var(--brand-300)',
-  Strong: 'var(--success-fg)',
-  Moderate: 'var(--text-secondary)',
+  Exceptional: 'var(--brand-400)',
+  Strong: 'var(--semantic-supportive-fg)',
+  Moderate: 'var(--semantic-neutral-fg)',
   Mild: 'var(--text-muted)',
 };
 
@@ -94,7 +94,7 @@ export default function YogaList({ chart }: Props) {
 
         {/* Metric Cards Grid */}
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(180px, 1fr))', gap:'0.85rem' }}>
-          <div style={{ background:'var(--surface-raised)', padding:'0.85rem 1rem', borderRadius:'var(--radius-md)', border:'1px solid var(--border-subtle)', borderLeft:'3.5px solid var(--brand-400)' }}>
+          <div style={{ background:'var(--surface-overlay)', padding:'0.85rem 1rem', borderRadius:'var(--radius-md)', border:'1px solid var(--border-subtle)', borderLeft:'3.5px solid var(--brand-400)' }}>
             <div style={{ fontSize:'0.7rem', textTransform:'uppercase', color:'var(--text-muted)', letterSpacing:'0.06em', fontWeight:600 }}>
               {language === 'mr' ? 'एकूण उपस्थित योग' : 'Detected Yogas'}
             </div>
@@ -103,29 +103,29 @@ export default function YogaList({ chart }: Props) {
             </div>
           </div>
 
-          <div style={{ background:'var(--surface-raised)', padding:'0.85rem 1rem', borderRadius:'var(--radius-md)', border:'1px solid var(--border-subtle)', borderLeft:'3.5px solid var(--success-fg)' }}>
+          <div style={{ background:'var(--surface-overlay)', padding:'0.85rem 1rem', borderRadius:'var(--radius-md)', border:'1px solid var(--border-subtle)', borderLeft:'3.5px solid var(--semantic-supportive-fg)' }}>
             <div style={{ fontSize:'0.7rem', textTransform:'uppercase', color:'var(--text-muted)', letterSpacing:'0.06em', fontWeight:600 }}>
               🌟 {language === 'mr' ? 'अतिउत्कृष्ट व बलवान' : 'Strong & Exceptional'}
             </div>
-            <div style={{ fontSize:'1.35rem', fontWeight:800, color:'var(--success-fg)', marginTop:'0.15rem' }}>
+            <div style={{ fontSize:'1.35rem', fontWeight:800, color:'var(--semantic-supportive-fg)', marginTop:'0.15rem' }}>
               {strongYogas.length}
             </div>
           </div>
 
-          <div style={{ background:'var(--surface-raised)', padding:'0.85rem 1rem', borderRadius:'var(--radius-md)', border:'1px solid var(--border-subtle)', borderLeft:'3.5px solid var(--text-secondary)' }}>
+          <div style={{ background:'var(--surface-overlay)', padding:'0.85rem 1rem', borderRadius:'var(--radius-md)', border:'1px solid var(--border-subtle)', borderLeft:'3.5px solid var(--semantic-neutral-fg)' }}>
             <div style={{ fontSize:'0.7rem', textTransform:'uppercase', color:'var(--text-muted)', letterSpacing:'0.06em', fontWeight:600 }}>
               ⚖ {language === 'mr' ? 'मध्यम प्रभाव' : 'Moderate Strength'}
             </div>
-            <div style={{ fontSize:'1.35rem', fontWeight:800, color:'var(--text-primary)', marginTop:'0.15rem' }}>
+            <div style={{ fontSize:'1.35rem', fontWeight:800, color:'var(--semantic-neutral-fg)', marginTop:'0.15rem' }}>
               {moderateYogas.length}
             </div>
           </div>
 
-          <div style={{ background:'var(--surface-raised)', padding:'0.85rem 1rem', borderRadius:'var(--radius-md)', border:'1px solid var(--border-subtle)', borderLeft:'3.5px solid var(--danger-fg)' }}>
+          <div style={{ background:'var(--surface-overlay)', padding:'0.85rem 1rem', borderRadius:'var(--radius-md)', border:'1px solid var(--border-subtle)', borderLeft:'3.5px solid var(--semantic-challenging-fg)' }}>
             <div style={{ fontSize:'0.7rem', textTransform:'uppercase', color:'var(--text-muted)', letterSpacing:'0.06em', fontWeight:600 }}>
               ⚠ {language === 'mr' ? 'आव्हानात्मक योग' : 'Challenging Yogas'}
             </div>
-            <div style={{ fontSize:'1.35rem', fontWeight:800, color:'var(--danger-fg)', marginTop:'0.15rem' }}>
+            <div style={{ fontSize:'1.35rem', fontWeight:800, color:'var(--semantic-challenging-fg)', marginTop:'0.15rem' }}>
               {challenging.length}
             </div>
           </div>
@@ -269,11 +269,11 @@ function YogaCard({ yoga, isExpanded, onToggle }: {
           {/* Positive influence */}
           {yoga.positiveEffects && (
             <div style={{ marginBottom:'0.65rem' }}>
-              <div style={{ fontSize:'0.75rem', fontWeight:700, color:'var(--success-fg)', marginBottom:'0.25rem', display:'flex', alignItems:'center', gap:'0.3rem' }}>
+              <div style={{ fontSize:'0.78rem', fontWeight:700, color:'var(--semantic-supportive-fg)', marginBottom:'0.25rem', display:'flex', alignItems:'center', gap:'0.3rem' }}>
                 <span>✅</span>
                 <span>{language === 'mr' ? 'शुभ फळ व प्रभाव' : 'Positive Influence'}</span>
               </div>
-              <div style={{ fontSize:'0.82rem', color:'var(--text-secondary)', marginLeft:'0.85rem', lineHeight:1.6 }}>
+              <div style={{ fontSize:'0.84rem', color:'var(--text-secondary)', marginLeft:'0.85rem', lineHeight:1.6 }}>
                 {yoga.positiveEffects}
               </div>
             </div>
@@ -282,11 +282,11 @@ function YogaCard({ yoga, isExpanded, onToggle }: {
           {/* Cautionary Guidance */}
           {yoga.cautionaryEffects && (
             <div>
-              <div style={{ fontSize:'0.75rem', fontWeight:700, color:'var(--warn-fg)', marginBottom:'0.25rem', display:'flex', alignItems:'center', gap:'0.3rem' }}>
+              <div style={{ fontSize:'0.78rem', fontWeight:700, color:'var(--semantic-neutral-fg)', marginBottom:'0.25rem', display:'flex', alignItems:'center', gap:'0.3rem' }}>
                 <span>⚡</span>
                 <span>{language === 'mr' ? 'सजगता व मर्यादा' : 'Cautionary Guidance'}</span>
               </div>
-              <div style={{ fontSize:'0.82rem', color:'var(--text-secondary)', marginLeft:'0.85rem', lineHeight:1.6 }}>
+              <div style={{ fontSize:'0.84rem', color:'var(--text-secondary)', marginLeft:'0.85rem', lineHeight:1.6 }}>
                 {yoga.cautionaryEffects}
               </div>
             </div>

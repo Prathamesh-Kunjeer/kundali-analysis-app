@@ -460,7 +460,6 @@ function AppContent() {
   const [isLoading, setIsLoading] = useState(false);
   const [error,     setError]     = useState<string | null>(null);
   const [showForm,  setShowForm]  = useState(true);
-  const [showMore,  setShowMore]  = useState(false);
 
   // Theme
   const [isDark, setIsDark] = useState<boolean>(() => {

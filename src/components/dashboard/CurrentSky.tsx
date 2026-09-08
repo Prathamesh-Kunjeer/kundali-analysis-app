@@ -12,9 +12,15 @@ const PC: Record<string, string> = {
 };
 
 const DIGNITY_BADGE: Record<string, string> = {
-  Exalted:'badge-gold', Moolatrikona:'badge-teal', OwnSign:'badge-teal',
-  GreatFriend:'badge-teal', Friend:'badge-teal', Neutral:'',
-  Enemy:'badge-crimson', GreatEnemy:'badge-crimson', Debilitated:'badge-crimson',
+  Exalted: 'badge-gold',
+  Moolatrikona: 'badge-supportive',
+  OwnSign: 'badge-supportive',
+  GreatFriend: 'badge-supportive',
+  Friend: 'badge-supportive',
+  Neutral: 'badge-subtle',
+  Enemy: 'badge-challenging',
+  GreatEnemy: 'badge-challenging',
+  Debilitated: 'badge-challenging',
 };
 
 const PLANET_KEYWORDS: Record<string, string> = {
