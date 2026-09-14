@@ -24,11 +24,12 @@ import DoshaPanel     from './components/dashboard/DoshaPanel';
 import Panchang       from './components/dashboard/Panchang';
 import PlanetTable    from './components/dashboard/PlanetTable';
 import DivisionalCharts from './components/charts/DivisionalCharts';
+import RemediesTab   from './components/dashboard/RemediesTab';
 
 // ─── Tab config ───────────────────────────────────────────────────────────────
 
 type Tab =
-  | 'overview' | 'effects' | 'yogas' | 'sky' | 'chart' | 'varga' | 'drishti'
+  | 'overview' | 'effects' | 'remedies' | 'yogas' | 'sky' | 'chart' | 'varga' | 'drishti'
   | 'houses' | 'dasha' | 'doshas' | 'panchang' | 'planets' | 'profiles';
 
 // ─── Profile Manager UI ───────────────────────────────────────────────────────
@@ -581,6 +582,7 @@ function AppContent() {
     { id: 'overview' as Tab, label: t('nav.overview'), icon: '🌟' },
     { id: 'chart'    as Tab, label: t('nav.birthChart'), icon: '🔷' },
     { id: 'effects'  as Tab, label: t('nav.planetEffects'), icon: '🪐' },
+    { id: 'remedies' as Tab, label: t('nav.remedies'), icon: '🌿' },
     { id: 'yogas'    as Tab, label: t('nav.rajYogas'), icon: '✨' },
     { id: 'sky'      as Tab, label: t('nav.currentSky'), icon: '🌍' },
     { id: 'varga'    as Tab, label: t('nav.varga'), icon: '🔢' },
@@ -855,6 +857,7 @@ function AppContent() {
                   {tab === 'overview'  && <Overview chart={chart} onNavigate={(tItem) => goTab(tItem as Tab)} />}
                   {tab === 'chart'     && <KundaliCharts chart={chart} />}
                   {tab === 'effects'   && <PlanetEffects chart={chart} />}
+                  {tab === 'remedies'  && <RemediesTab chart={chart} />}
                   {tab === 'yogas'     && <YogaList chart={chart} />}
                   {tab === 'sky'       && <CurrentSky chart={chart} />}
                   {tab === 'varga'     && <DivisionalCharts chart={chart} />}

@@ -277,6 +277,29 @@ export const en = {
   'sky.house': 'House',
   'sky.governs': 'governs:',
   'sky.footerNote': 'Positions calculated using Swiss Ephemeris-compatible low-precision VSOP87 approximations with Lahiri (Chitra Paksha) ayanamsha. Transit interpretations are traditional Vedic guidelines and should not be taken as predictions.',
+
+  // Remedies Tab
+  'nav.remedies': 'Remedies',
+  'remedies.title': 'Remedies for Your Kundali',
+  'remedies.subtitle': 'These traditional remedies are suggested for planets that appear weaker or more challenged in your birth chart.',
+  'remedies.needsAttention': 'Needs Attention',
+  'remedies.needsAttentionSubtitle': 'Planets under significant pressure or facing difficulties in your chart.',
+  'remedies.needsSupport': 'Needs Support',
+  'remedies.needsSupportSubtitle': 'Planets with moderate strength or mixed influences that benefit from gentle alignment.',
+  'remedies.highPriority': 'High Priority',
+  'remedies.startWith': 'Start with the planet marked High Priority:',
+  'remedies.planetsNeedAttention': 'planets need attention',
+  'remedies.planetsNeedSupport': 'planets need support',
+  'remedies.whyTitle': 'Why is this planet flagged?',
+  'remedies.threeRemediesTitle': '3 Traditional Remedies',
+  'remedies.whatToDo': 'What to do',
+  'remedies.timing': 'Timing & Frequency',
+  'remedies.rationale': 'Traditional Purpose',
+  'remedies.technicalFactors': 'Technical Chart Factors',
+  'remedies.emptyAttention': 'No planets in your chart are under critical pressure. Your chart maintains good baseline resilience.',
+  'remedies.emptySupport': 'No planets currently require moderate support.',
+  'remedies.allWell': 'All planets in your chart are currently placed in strong and supportive conditions. Continue your regular positive habits.',
+  'remedies.disclaimer': 'These are traditional Vedic astrology practices for reflection and spiritual/cultural practice. They are not guaranteed to change real-world outcomes.',
 };
 
 export type TranslationKey = keyof typeof en;
