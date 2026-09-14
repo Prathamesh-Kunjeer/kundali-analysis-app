@@ -1,11 +1,15 @@
 import React from 'react';
 import type { KundaliChart, Planet } from '../../core/models';
+import type { Profile } from '../../utils/profiles';
+import { validateProfileLocation } from '../../utils/locationValidator';
 import { PLANET_LABELS } from '../../core/constants';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface Props {
   chart: KundaliChart;
   onNavigate?: (tab: string) => void;
+  profile?: Profile | null;
+  onEditProfile?: () => void;
 }
 
 const PC: Record<string, string> = {
@@ -17,7 +21,7 @@ function formatDate(d: Date, lang: string = 'en') {
   return new Date(d).toLocaleDateString(lang === 'mr' ? 'mr-IN' : 'en-IN', { month:'short', year:'numeric' });
 }
 
-export default function Overview({ chart, onNavigate }: Props) {
+export default function Overview({ chart, onNavigate, profile, onEditProfile }: Props) {
   const { language, t, formatPlanet, formatSign } = useLanguage();
   const {
     birthData, lagnaSign, lagnaLord, moonSign, sunSign,
@@ -187,8 +191,41 @@ export default function Overview({ chart, onNavigate }: Props) {
     });
   }
 
+  const locationString = [birthData.cityName, birthData.state, birthData.country].filter(Boolean).join(', ');
+  const lat = birthData.latitude;
+  const lon = birthData.longitude;
+  const latFormatted = `${Math.abs(lat).toFixed(2)}°${lat >= 0 ? 'N' : 'S'}`;
+  const lonFormatted = `${Math.abs(lon).toFixed(2)}°${lon >= 0 ? 'E' : 'W'}`;
+  const tzOffset = birthData.timezone;
+  const tzFormatted = `UTC${tzOffset >= 0 ? '+' : ''}${tzOffset}`;
+
+  const locationValidation = profile?.locationNeedsVerification
+    ? { isMismatch: true, reason: language === 'mr' ? 'जन्मस्थानाचे निर्देशांक पडताळणे आवश्यक आहे' : 'Stored coordinates may not match the birth city.' }
+    : validateProfileLocation(birthData);
+
   return (
     <div className="fade-in" style={{ display:'flex', flexDirection:'column', gap:'1.75rem' }}>
+      {/* Location Verification Alert if coordinates mismatch */}
+      {locationValidation.isMismatch && (
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap',
+          gap: '0.75rem', padding: '0.75rem 1.15rem', borderRadius: 'var(--radius-md)',
+          background: 'rgba(217, 79, 79, 0.08)', border: '1px solid var(--danger-fg)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', fontSize: '0.84rem', color: 'var(--text-primary)' }}>
+            <span style={{ fontSize: '1.15rem' }}>⚠️</span>
+            <span>
+              <b>{t('common.locationVerificationNeeded')}:</b> {locationValidation.reason || locationString}
+            </span>
+          </div>
+          {onEditProfile && (
+            <button className="btn btn-primary" style={{ fontSize: '0.75rem', padding: '0.25rem 0.65rem' }} onClick={onEditProfile}>
+              {t('common.fixLocation')}
+            </button>
+          )}
+        </div>
+      )}
+
       {/* ─── HERO IDENTITY BANNER ────────────────────────────────────────── */}
       <div className="card card-hero">
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:'1rem', marginBottom:'1.5rem' }}>
@@ -200,7 +237,7 @@ export default function Overview({ chart, onNavigate }: Props) {
                   {birthData.name || (language === 'mr' ? 'जन्मकुंडली विश्लेषण' : 'Natal Chart')}
                 </h2>
                 <div style={{ fontSize:'0.82rem', color:'var(--text-secondary)', marginTop:'0.2rem' }}>
-                  {birthData.dob} · {birthData.tob} · <b>{birthData.cityName}</b>{birthData.country ? `, ${birthData.country}` : ''}
+                  {birthData.dob} · {birthData.tob} · <b>{locationString}</b>
                 </div>
               </div>
             </div>
@@ -210,7 +247,10 @@ export default function Overview({ chart, onNavigate }: Props) {
               Lahiri {chart.ayanamsha.toFixed(3)}°
             </span>
             <span className="badge badge-subtle" style={{ fontSize:'0.75rem', padding:'0.3rem 0.75rem' }}>
-              {chart.birthData.latitude.toFixed(2)}°N, {chart.birthData.longitude.toFixed(2)}°E
+              {latFormatted}, {lonFormatted}
+            </span>
+            <span className="badge badge-subtle" style={{ fontSize:'0.75rem', padding:'0.3rem 0.75rem' }}>
+              {tzFormatted}{birthData.tzName ? ` (${birthData.tzName})` : ''}
             </span>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import type { BirthData } from '../core/models';
+import { CITIES } from '../data/cities';
 import { useLanguage } from '../context/LanguageContext';
 
 interface Props {
@@ -27,6 +28,19 @@ interface NominatimResult {
     country?: string;
     country_code?: string;
   };
+}
+
+interface CitySuggestion {
+  id: string;
+  source: 'verified' | 'osm';
+  cityName: string;
+  state: string;
+  country: string;
+  label: string;
+  latitude: number;
+  longitude: number;
+  timezone?: number;
+  tzName?: string;
 }
 
 interface ResolvedLocation {
@@ -81,7 +95,6 @@ async function searchCities(query: string): Promise<NominatimResult[]> {
 
   const res = await fetch(url.toString(), {
     headers: {
-      // Nominatim policy: include a meaningful User-Agent
       'User-Agent': 'JyotishVeda-KundaliApp/1.0 (contact: jyotishveda@example.com)',
       'Accept-Language': 'en',
     },
@@ -126,8 +139,11 @@ export default function BirthForm({ onCalculate, isLoading, initialData, submitL
   const [tob, setTob]       = useState(initialData?.tob ?? '12:00');
 
   // Location resolution
-  const [citySearch, setCitySearch]           = useState('');
-  const [suggestions, setSuggestions]         = useState<NominatimResult[]>([]);
+  const initialCityLabel = initialData
+    ? [initialData.cityName, initialData.state, initialData.country].filter(Boolean).join(', ')
+    : '';
+  const [citySearch, setCitySearch]           = useState(initialCityLabel);
+  const [suggestions, setSuggestions]         = useState<CitySuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searching, setSearching]             = useState(false);
   const [resolving, setResolving]             = useState(false);
@@ -146,56 +162,160 @@ export default function BirthForm({ onCalculate, isLoading, initialData, submitL
       : null
   );
 
+  // Sync state if initialData changes
+  useEffect(() => {
+    if (initialData) {
+      setName(initialData.name ?? '');
+      setGender(initialData.gender ?? 'male');
+      setDob(initialData.dob ?? '');
+      setTob(initialData.tob ?? '12:00');
+      const locLabel = [initialData.cityName, initialData.state, initialData.country].filter(Boolean).join(', ');
+      setCitySearch(locLabel);
+      setResolved({
+        cityName: initialData.cityName,
+        state: initialData.state ?? '',
+        country: initialData.country,
+        latitude: initialData.latitude,
+        longitude: initialData.longitude,
+        timezone: initialData.timezone,
+        tzName: initialData.tzName ?? '',
+      });
+    }
+  }, [initialData]);
+
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Debounced Nominatim search
+  // Instant local match + Debounced Nominatim search
   const handleCityInput = useCallback((val: string) => {
     setCitySearch(val);
-    setResolved(null);
+    setResolved(null); // CRITICAL: Always invalidate previous coordinates immediately
     setSearchError('');
     setSuggestions([]);
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    if (val.trim().length < 3) { setShowSuggestions(false); return; }
+    const trimmed = val.trim();
+    if (trimmed.length < 2) {
+      setShowSuggestions(false);
+      return;
+    }
 
-    debounceRef.current = setTimeout(async () => {
-      setSearching(true);
+    // 1. Instant match from verified CITIES repository
+    const q = trimmed.toLowerCase();
+    const localMatches: CitySuggestion[] = CITIES.filter(c =>
+      c.name.toLowerCase().includes(q) ||
+      (c.state && c.state.toLowerCase().includes(q)) ||
+      c.country.toLowerCase().includes(q)
+    ).slice(0, 5).map(c => ({
+      id: `verified-${c.name}-${c.country}`,
+      source: 'verified' as const,
+      cityName: c.name,
+      state: c.state || '',
+      country: c.country,
+      label: [c.name, c.state, c.country].filter(Boolean).join(', '),
+      latitude: c.latitude,
+      longitude: c.longitude,
+      timezone: c.timezone,
+      tzName: c.timezone === 5.5 && c.country === 'India' ? 'Asia/Kolkata' : '',
+    }));
+
+    if (localMatches.length > 0) {
+      setSuggestions(localMatches);
       setShowSuggestions(true);
-      try {
-        const results = await searchCities(val);
-        setSuggestions(results);
-        if (results.length === 0) setSearchError(t('form.noCitiesFound'));
-        else setSearchError('');
-      } catch {
-        setSearchError(t('form.searchUnavailable'));
-        setSuggestions([]);
-      } finally {
-        setSearching(false);
-      }
-    }, 450);
+    }
+
+    // 2. Debounced search from OpenStreetMap Nominatim for international / smaller towns
+    if (trimmed.length >= 3) {
+      debounceRef.current = setTimeout(async () => {
+        setSearching(true);
+        try {
+          const results = await searchCities(trimmed);
+          const osmSuggestions: CitySuggestion[] = results.map(r => {
+            const city = extractCity(r);
+            const state = r.address.state ?? r.address.county ?? '';
+            const country = r.address.country ?? '';
+            return {
+              id: `osm-${r.place_id}`,
+              source: 'osm' as const,
+              cityName: city,
+              state,
+              country,
+              label: cityLabel(r),
+              latitude: parseFloat(r.lat),
+              longitude: parseFloat(r.lon),
+            };
+          });
+
+          // Combine with local matches avoiding exact duplicates
+          const seenLabels = new Set(localMatches.map(m => m.label.toLowerCase()));
+          const combined = [
+            ...localMatches,
+            ...osmSuggestions.filter(s => !seenLabels.has(s.label.toLowerCase())),
+          ].slice(0, 8);
+
+          setSuggestions(combined);
+          if (combined.length === 0 && localMatches.length === 0) {
+            setSearchError(t('form.noCitiesFound'));
+          } else {
+            setSearchError('');
+            setShowSuggestions(true);
+          }
+        } catch {
+          if (localMatches.length === 0) {
+            setSearchError(t('form.searchUnavailable'));
+          }
+        } finally {
+          setSearching(false);
+        }
+      }, 450);
+    }
   }, [t]);
 
   // When user picks a suggestion
-  const handleSelectCity = useCallback(async (r: NominatimResult) => {
-    const lat = parseFloat(r.lat);
-    const lon = parseFloat(r.lon);
-    const city = extractCity(r);
-    const state = r.address.state ?? r.address.county ?? '';
-    const country = r.address.country ?? '';
-
-    setCitySearch(cityLabel(r));
+  const handleSelectSuggestion = useCallback(async (s: CitySuggestion) => {
+    setCitySearch(s.label);
     setShowSuggestions(false);
     setSuggestions([]);
     setSearchError('');
-    setResolving(true);
 
+    // If verified city with known timezone, resolve immediately with zero network delay
+    if (s.source === 'verified' && s.timezone !== undefined) {
+      setResolved({
+        cityName: s.cityName,
+        state: s.state,
+        country: s.country,
+        latitude: s.latitude,
+        longitude: s.longitude,
+        timezone: s.timezone,
+        tzName: s.tzName ?? '',
+      });
+      return;
+    }
+
+    // For OSM results, resolve timezone via Open-Meteo
+    setResolving(true);
     try {
-      const { tzName, utcOffset } = await resolveTimezone(lat, lon);
-      setResolved({ cityName: city, state, country, latitude: lat, longitude: lon, timezone: utcOffset, tzName });
+      const { tzName, utcOffset } = await resolveTimezone(s.latitude, s.longitude);
+      setResolved({
+        cityName: s.cityName,
+        state: s.state,
+        country: s.country,
+        latitude: s.latitude,
+        longitude: s.longitude,
+        timezone: utcOffset,
+        tzName,
+      });
     } catch {
       // Fallback: estimate UTC offset from longitude (±15° per hour)
-      const estimatedOffset = Math.round((lon / 15) * 2) / 2;
-      setResolved({ cityName: city, state, country, latitude: lat, longitude: lon, timezone: estimatedOffset, tzName: '' });
+      const estimatedOffset = Math.round((s.longitude / 15) * 2) / 2;
+      setResolved({
+        cityName: s.cityName,
+        state: s.state,
+        country: s.country,
+        latitude: s.latitude,
+        longitude: s.longitude,
+        timezone: estimatedOffset,
+        tzName: '',
+      });
       setSearchError(t('form.timezoneFallback'));
     } finally {
       setResolving(false);
@@ -227,7 +347,7 @@ export default function BirthForm({ onCalculate, isLoading, initialData, submitL
     e.preventDefault();
     if (!canSubmit || !resolved) return;
     onCalculate({
-      id: crypto.randomUUID(),
+      id: initialData?.id ?? crypto.randomUUID(),
       name, gender, dob, tob,
       latitude: resolved.latitude,
       longitude: resolved.longitude,
@@ -420,9 +540,9 @@ export default function BirthForm({ onCalculate, isLoading, initialData, submitL
                 borderRadius: 'var(--radius-md)', overflow: 'hidden',
                 boxShadow: 'var(--shadow-elevated)', maxHeight: 280, overflowY: 'auto',
               }}>
-                {suggestions.map(r => (
-                  <div key={r.place_id}
-                    onMouseDown={e => { e.preventDefault(); handleSelectCity(r); }}
+                {suggestions.map(s => (
+                  <div key={s.id}
+                    onMouseDown={e => { e.preventDefault(); handleSelectSuggestion(s); }}
                     style={{
                       padding: '0.65rem 0.95rem', cursor: 'pointer',
                       borderBottom: '1px solid var(--border-subtle)',
@@ -430,11 +550,18 @@ export default function BirthForm({ onCalculate, isLoading, initialData, submitL
                     }}
                     className="flex justify-between items-center"
                   >
-                    <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
-                      {extractCity(r)}
-                    </span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                      <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
+                        {s.cityName}
+                      </span>
+                      {s.source === 'verified' && (
+                        <span className="badge badge-gold" style={{ fontSize: '0.62rem', padding: '0.1rem 0.4rem' }}>
+                          Verified
+                        </span>
+                      )}
+                    </div>
                     <span className="text-xs text-muted" style={{ marginLeft: 8, flexShrink: 0 }}>
-                      {[r.address.state, r.address.country].filter(Boolean).join(', ')}
+                      {[s.state, s.country].filter(Boolean).join(', ')}
                     </span>
                   </div>
                 ))}

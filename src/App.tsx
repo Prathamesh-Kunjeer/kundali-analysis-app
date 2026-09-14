@@ -10,6 +10,7 @@ import {
   getLastProfileId, setLastProfileId, clearLastProfileId,
   type Profile,
 } from './utils/profiles';
+import { auditAndRemediateProfile } from './utils/locationValidator';
 
 // Tabs
 import Overview       from './components/dashboard/Overview';
@@ -92,7 +93,12 @@ function ProfileManager({ profiles, activeId, onSelect, onCreate, onEdit, onDele
                         {p.id === activeId && '✓ '}{p.name}
                       </div>
                       <div style={{ fontSize:'0.75rem', color:'var(--text-muted)', marginTop:'0.15rem' }}>
-                        {formatDate(p.birth.dob)} · {p.birth.tob} · {p.birth.cityName}{p.birth.country ? `, ${p.birth.country}` : ''}
+                        {formatDate(p.birth.dob)} · {p.birth.tob} · {[p.birth.cityName, p.birth.state, p.birth.country].filter(Boolean).join(', ')}
+                        {p.locationNeedsVerification && (
+                          <span className="badge badge-crimson" style={{ fontSize: '0.65rem', marginLeft: '0.4rem' }}>
+                            ⚠ Needs check
+                          </span>
+                        )}
                       </div>
                     </div>
                     <div style={{ display:'flex', gap:'0.35rem', flexShrink:0 }}>
@@ -313,11 +319,18 @@ function ProfilesWorkspace({
                         </div>
                       </div>
                     </div>
-                    {isActive && (
-                      <span className="badge badge-gold" style={{ fontSize: '0.72rem' }}>
-                        ✓ Active
-                      </span>
-                    )}
+                    <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
+                      {p.locationNeedsVerification && (
+                        <span className="badge badge-crimson" style={{ fontSize: '0.68rem' }}>
+                          ⚠ Needs check
+                        </span>
+                      )}
+                      {isActive && (
+                        <span className="badge badge-gold" style={{ fontSize: '0.72rem' }}>
+                          ✓ Active
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {/* Profile Details List */}
@@ -486,8 +499,9 @@ function AppContent() {
   }, []);
 
   function openProfile(p: Profile) {
-    setActiveProf(p);
-    setLastProfileId(p.id);
+    const audited = auditAndRemediateProfile(p).profile;
+    setActiveProf(audited);
+    setLastProfileId(audited.id);
     pendingBirth.current = null;
     setShowSave(false);
     setShowForm(false);
@@ -495,7 +509,7 @@ function AppContent() {
     setIsLoading(true);
     setTimeout(() => {
       try {
-        const c = calculateKundali(p.birth);
+        const c = calculateKundali(audited.birth);
         setChart(c);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Calculation error');
@@ -841,7 +855,20 @@ function AppContent() {
                   {t('form.tip')}
                 </div>
               )}
-              <BirthForm onCalculate={handleCalculate} isLoading={isLoading} />
+              <BirthForm
+                key={activeProf?.id ?? 'new-birth-form'}
+                initialData={activeProf?.birth}
+                submitLabel={activeProf ? t('profile.update') : undefined}
+                onCalculate={(birth) => {
+                  if (activeProf) {
+                    handleEdit(activeProf.id, activeProf.name, birth);
+                    setShowForm(false);
+                  } else {
+                    handleCalculate(birth);
+                  }
+                }}
+                isLoading={isLoading}
+              />
             </div>
           )}
 
@@ -854,7 +881,14 @@ function AppContent() {
                 </div>
               ) : (
                 <div className="fade-in">
-                  {tab === 'overview'  && <Overview chart={chart} onNavigate={(tItem) => goTab(tItem as Tab)} />}
+                  {tab === 'overview'  && (
+                    <Overview
+                      chart={chart}
+                      profile={activeProf}
+                      onNavigate={(tItem) => goTab(tItem as Tab)}
+                      onEditProfile={() => setShowForm(true)}
+                    />
+                  )}
                   {tab === 'chart'     && <KundaliCharts chart={chart} />}
                   {tab === 'effects'   && <PlanetEffects chart={chart} />}
                   {tab === 'remedies'  && <RemediesTab chart={chart} />}

@@ -5,6 +5,7 @@
 // ============================================================
 
 import type { BirthData } from '../core/models';
+import { auditAndRemediateProfile } from './locationValidator';
 
 export interface Profile {
   id: string;
@@ -12,6 +13,7 @@ export interface Profile {
   birth: BirthData;
   createdAt: string;      // ISO timestamp
   updatedAt: string;
+  locationNeedsVerification?: boolean;
 }
 
 const KEY_PROFILES   = 'jv_profiles';
@@ -23,7 +25,21 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
 export function loadProfiles(): Profile[] {
   try {
     const raw = localStorage.getItem(KEY_PROFILES);
-    return raw ? (JSON.parse(raw) as Profile[]) : [];
+    if (!raw) return [];
+    const profs = JSON.parse(raw) as Profile[];
+    let changed = false;
+
+    // Audit and remediate any stored location mismatches from older app sessions
+    const audited = profs.map(p => {
+      const res = auditAndRemediateProfile(p);
+      if (res.wasRemediated) changed = true;
+      return res.profile;
+    });
+
+    if (changed) {
+      saveProfiles(audited);
+    }
+    return audited;
   } catch { return []; }
 }
 
@@ -32,20 +48,23 @@ export function saveProfiles(profiles: Profile[]): void {
 }
 
 export function createProfile(name: string, birth: BirthData): Profile {
-  const p: Profile = { id: uid(), name, birth, createdAt: now(), updatedAt: now() };
+  const initial: Profile = { id: uid(), name, birth, createdAt: now(), updatedAt: now() };
+  const audited = auditAndRemediateProfile(initial).profile;
   const all = loadProfiles();
-  all.unshift(p);
+  all.unshift(audited);
   saveProfiles(all);
-  return p;
+  return audited;
 }
 
 export function updateProfile(id: string, name: string, birth: BirthData): Profile | null {
   const all = loadProfiles();
   const idx = all.findIndex(p => p.id === id);
   if (idx === -1) return null;
-  all[idx] = { ...all[idx], name, birth, updatedAt: now() };
+  const updated: Profile = { ...all[idx], name, birth, updatedAt: now() };
+  const audited = auditAndRemediateProfile(updated).profile;
+  all[idx] = audited;
   saveProfiles(all);
-  return all[idx];
+  return audited;
 }
 
 export function deleteProfile(id: string): void {
