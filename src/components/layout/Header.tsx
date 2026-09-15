@@ -41,23 +41,16 @@ export const Header: React.FC<HeaderProps> = ({
       >
         {/* Brand Logo & Tagline */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={onNewChartClick}>
-          <div
+          <img
+            src="/brand/logo-icon.png"
+            alt="Kundali Analysis Logo"
+            width={42}
+            height={42}
             style={{
-              width: '42px',
-              height: '42px',
-              borderRadius: '12px',
-              background: 'linear-gradient(135deg, #f5e7a9 0%, #d4af37 50%, #aa841e 100%)',
-              color: '#070913',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 18px rgba(212, 175, 55, 0.5)',
-              fontWeight: '900',
-              fontSize: '1.2rem'
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 0 12px rgba(212, 175, 55, 0.4))'
             }}
-          >
-            ॐ
-          </div>
+          />
 
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>

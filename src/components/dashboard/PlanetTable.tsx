@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import type { KundaliChart, Planet, PlanetAnalysis } from '../../core/models';
 import { PLANET_LABELS } from '../../core/constants';
+import { PLANET_THEME_COLORS } from '../../utils/themeColors';
 
 interface Props { chart: KundaliChart; onSelectPlanet: (p: Planet) => void; }
 
 const ALL_PLANETS: Planet[] = ['Ascendant','Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
 
-const PLANET_COLORS: Record<string, string> = {
-  Sun:'#ff8c00', Moon:'#c0c0ff', Mars:'#ff4500', Mercury:'#32cd32',
-  Jupiter:'#ffd700', Venus:'#ff69b4', Saturn:'#4169e1', Rahu:'#8b008b',
-  Ketu:'#808080', Ascendant:'#d4a017',
-};
+const PLANET_COLORS = PLANET_THEME_COLORS;
 
 const DIGNITY_COLORS: Record<string, string> = {
-  Exalted:'var(--dignity-exalted, #ffd700)',
-  Moolatrikona:'var(--gold-300)',
-  OwnSign:'var(--teal-300)',
-  Friend:'#81c784',
-  GreatFriend:'#66bb6a',
-  Neutral:'var(--text-secondary)',
-  Enemy:'#ef9a9a',
-  GreatEnemy:'#e57373',
-  Debilitated:'var(--crimson-300)',
+  Exalted:     'var(--color-text-accent)',
+  Moolatrikona:'var(--color-text-accent)',
+  OwnSign:     'var(--color-status-success)',
+  Friend:      'var(--color-status-success)',
+  GreatFriend: 'var(--color-status-success)',
+  Neutral:     'var(--color-text-secondary)',
+  Enemy:       'var(--color-status-danger)',
+  GreatEnemy:  'var(--color-status-danger)',
+  Debilitated: 'var(--color-status-danger)',
 };
 
 export default function PlanetTable({ chart, onSelectPlanet }: Props) {

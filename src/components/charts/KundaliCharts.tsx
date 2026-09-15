@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import type { KundaliChart, Planet } from '../../core/models';
 import { PLANET_LABELS } from '../../core/constants';
 import { useLanguage } from '../../context/LanguageContext';
+import { PLANET_THEME_COLORS, withAlpha } from '../../utils/themeColors';
 
 interface Props { chart: KundaliChart }
 
-/* ─── Planet colours ──────────────────────────────────────────────────────── */
-const PC: Record<string, string> = {
-  Sun:'#e07b39', Moon:'#7b9fd4', Mars:'#d94f4f', Mercury:'#4aad78',
-  Jupiter:'#c9a227', Venus:'#c060a0', Saturn:'#5577b8', Rahu:'#8f5baa',
-  Ketu:'#7d8a94', Ascendant:'#c9a227',
-};
+/* ─── Theme-aware Planet colours ─────────────────────────────────────────── */
+const PC = PLANET_THEME_COLORS;
 
 /* Canonical glyphs — use these everywhere for consistency */
 const GLYPHS: Record<string, string> = {
@@ -528,7 +525,7 @@ function PlanetGuide({ chart, selectedPlanet, onSelectPlanet }: {
               style={{
                 display:'flex', flexDirection:'column', alignItems:'center', gap:'0.1rem',
                 padding:'0.4rem 0.7rem', borderRadius:'var(--radius-sm)', cursor:'pointer',
-                background: isSelected ? `${PC[p]}22` : 'var(--surface-overlay)',
+                background: isSelected ? withAlpha(PC[p], 18) : 'var(--surface-overlay)',
                 border:`1.5px solid ${isSelected ? PC[p] : 'var(--border-subtle)'}`,
                 transition:'all 0.15s',
               }}>
@@ -559,7 +556,7 @@ function PlanetGuide({ chart, selectedPlanet, onSelectPlanet }: {
         return (
           <div style={{
             padding:'0.9rem 1.05rem', borderRadius:'var(--radius-sm)',
-            background:`${PC[p]}11`, border:`1.5px solid ${PC[p]}44`,
+            background: withAlpha(PC[p], 10), border:`1.5px solid ${withAlpha(PC[p], 35)}`,
             display:'grid', gridTemplateColumns:'auto 1fr', gap:'0.75rem 1.25rem',
             alignItems:'start',
           }}>
@@ -686,7 +683,7 @@ export default function KundaliCharts({ chart }: Props) {
               {/* Moon Sign */}
               <div className="info-row">
                 <span className="label">🌙 {t('overview.moonSign')}</span>
-                <span className="value font-bold" style={{ color:'#7b9fd4' }}>
+                <span className="value font-bold" style={{ color:'var(--color-planet-moon)' }}>
                   {formatSign(chart.moonSign)}
                 </span>
               </div>
@@ -694,7 +691,7 @@ export default function KundaliCharts({ chart }: Props) {
               {/* Sun Sign */}
               <div className="info-row">
                 <span className="label">☀️ {t('overview.sunSign')}</span>
-                <span className="value font-bold" style={{ color:'#e07b39' }}>
+                <span className="value font-bold" style={{ color:'var(--color-planet-sun)' }}>
                   {formatSign(chart.sunSign)}
                 </span>
               </div>
@@ -745,8 +742,8 @@ export default function KundaliCharts({ chart }: Props) {
 
           {/* Real-time Planet Inspector Card */}
           <div className="card" style={{
-            background: selectedPlanet ? `${PC[selectedPlanet]}0d` : 'var(--surface-raised)',
-            borderColor: selectedPlanet ? `${PC[selectedPlanet]}55` : 'var(--border-subtle)',
+            background: selectedPlanet ? withAlpha(PC[selectedPlanet], 8) : 'var(--surface-raised)',
+            borderColor: selectedPlanet ? withAlpha(PC[selectedPlanet], 40) : 'var(--border-subtle)',
             transition: 'all 0.2s ease',
           }}>
             <div className="card-header">
@@ -772,9 +769,9 @@ export default function KundaliCharts({ chart }: Props) {
                   <div style={{ display:'flex', alignItems:'center', gap:'0.85rem', marginBottom:'1rem' }}>
                     <div style={{
                       width:52, height:52, borderRadius:'50%',
-                      background:`${PC[p]}20`, border:`2px solid ${PC[p]}`,
+                      background: withAlpha(PC[p], 15), border:`2px solid ${PC[p]}`,
                       display:'grid', placeItems:'center', fontSize:'1.75rem', color:PC[p],
-                      boxShadow:`0 0 16px ${PC[p]}33`,
+                      boxShadow:`0 0 12px ${withAlpha(PC[p], 25)}`,
                     }}>
                       {GLYPHS[p]}
                     </div>
@@ -791,7 +788,7 @@ export default function KundaliCharts({ chart }: Props) {
                   <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'0.6rem', fontSize:'0.8rem' }}>
                     <div style={{ background:'var(--surface-overlay)', padding:'0.5rem 0.7rem', borderRadius:'var(--radius-sm)' }}>
                       <div style={{ fontSize:'0.68rem', color:'var(--text-muted)' }}>{t('common.dignity')}</div>
-                      <div style={{ fontWeight:700, color:'var(--brand-400)', marginTop:'0.1rem' }}>
+                      <div style={{ fontWeight:700, color:'var(--color-text-accent)', marginTop:'0.1rem' }}>
                         {formatDignity(pos.dignity)}
                       </div>
                     </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { KundaliChart } from '../../core/models';
 import { PLANET_LABELS } from '../../core/constants';
+import { PLANET_THEME_COLORS } from '../../utils/themeColors';
 
 interface Props { chart: KundaliChart; }
 
@@ -65,11 +66,7 @@ export default function Interpretations({ chart }: Props) {
       <div>
         {planetReadings.map(({ planet, text, strength, score, nature }) => {
           if (!text) return null;
-          const COLORS: Record<string, string> = {
-            Sun:'#ff8c00', Moon:'#c0c0ff', Mars:'#ff4500', Mercury:'#32cd32',
-            Jupiter:'#ffd700', Venus:'#ff69b4', Saturn:'#4169e1', Rahu:'#8b008b', Ketu:'#808080',
-          };
-          const color = COLORS[planet] || '#fff';
+          const color = PLANET_THEME_COLORS[planet] || 'var(--text-primary)';
           const natCls = nature === 'Yogakaraka' ? 'badge-gold' : nature === 'Benefic' ? 'badge-teal' : nature === 'Malefic' ? 'badge-crimson' : 'badge-subtle';
           return (
             <div key={planet} className="card" style={{ marginBottom: '0.75rem', borderLeft: `3px solid ${color}` }}>

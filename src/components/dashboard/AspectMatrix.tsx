@@ -3,15 +3,13 @@ import type { KundaliChart, Planet, AspectRelation } from '../../core/models';
 import { PLANET_LABELS } from '../../core/constants';
 import { aspectsGivenBy, aspectsReceivedBy } from '../../core/aspects';
 import { useLanguage } from '../../context/LanguageContext';
+import { PLANET_THEME_COLORS, withAlpha } from '../../utils/themeColors';
 
 interface Props { chart: KundaliChart }
 
 const PLANETS: Planet[] = ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
 
-const PC: Record<string, string> = {
-  Sun:'#e07b39', Moon:'#7b9fd4', Mars:'#d94f4f', Mercury:'#4aad78',
-  Jupiter:'#c9a227', Venus:'#c060a0', Saturn:'#5577b8', Rahu:'#8f5baa', Ketu:'#7d8a94',
-};
+const PC = PLANET_THEME_COLORS;
 
 // Natural malefics / benefics for quick influence assessment
 const NATURAL_MALEFICS = new Set(['Saturn','Mars','Rahu','Ketu','Sun']);
@@ -171,7 +169,7 @@ function AspectCard({
           <div style={{
             display:'inline-flex', alignItems:'center', gap:'0.4rem',
             padding:'0.3rem 0.65rem', borderRadius:'var(--radius-sm)',
-            background:`${PC[aspect.fromPlanet]}18`, border:`1px solid ${PC[aspect.fromPlanet]}`,
+            background: withAlpha(PC[aspect.fromPlanet], 15), border:`1px solid ${PC[aspect.fromPlanet]}`,
             color:PC[aspect.fromPlanet], fontWeight:700, fontSize:'0.85rem',
           }}>
             <span>{PLANET_LABELS[aspect.fromPlanet]?.symbol}</span>
@@ -198,7 +196,7 @@ function AspectCard({
               <div style={{
                 display:'inline-flex', alignItems:'center', gap:'0.4rem',
                 padding:'0.3rem 0.65rem', borderRadius:'var(--radius-sm)',
-                background:`${PC[targetPlanet]}18`, border:`1px solid ${PC[targetPlanet]}`,
+                background: withAlpha(PC[targetPlanet], 15), border:`1px solid ${PC[targetPlanet]}`,
                 color:PC[targetPlanet], fontWeight:700, fontSize:'0.85rem',
               }}>
                 <span>{PLANET_LABELS[targetPlanet]?.symbol}</span>
@@ -319,7 +317,7 @@ export default function DrishtiExplorer({ chart }: Props) {
               style={{
                 display:'flex', flexDirection:'column', alignItems:'center',
                 gap:'0.2rem', padding:'0.55rem 0.85rem', borderRadius:'var(--radius-sm)',
-                background: isSelected ? `${PC[p]}22` : 'var(--surface-overlay)',
+                background: isSelected ? withAlpha(PC[p], 18) : 'var(--surface-overlay)',
                 border:`2px solid ${isSelected ? PC[p] : 'var(--border-subtle)'}`,
                 cursor:'pointer', transition:'all 0.15s', minWidth:72,
               }}
@@ -339,7 +337,7 @@ export default function DrishtiExplorer({ chart }: Props) {
       {/* Selected planet summary */}
       <div style={{
         padding:'0.9rem 1.1rem', borderRadius:'var(--radius-md)',
-        background:`${PC[selected]}11`, border:`1.5px solid ${PC[selected]}44`,
+        background: withAlpha(PC[selected], 10), border:`1.5px solid ${withAlpha(PC[selected], 35)}`,
         marginBottom:'1.1rem',
       }}>
         <div style={{ display:'flex', alignItems:'center', gap:'0.75rem', flexWrap:'wrap' }}>

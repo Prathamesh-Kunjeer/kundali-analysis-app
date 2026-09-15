@@ -1,0 +1,30 @@
+{
+  "name": "Kundali Analysis — JyotishVeda Studio",
+  "short_name": "Kundali Analysis",
+  "description": "Professional Vedic Astrology & Janam Kundali Analysis Studio",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0C0E14",
+  "theme_color": "#0C0E14",
+  "icons": [
+    {
+      "src": "/brand/app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/logo-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -18,19 +18,10 @@ interface Props {
   chart: KundaliChart;
 }
 
+import { PLANET_THEME_COLORS, withAlpha } from '../../utils/themeColors';
+
 /* Planet colours matching KundaliCharts */
-const PC: Record<string, string> = {
-  Sun: '#e07b39',
-  Moon: '#7b9fd4',
-  Mars: '#d94f4f',
-  Mercury: '#4aad78',
-  Jupiter: '#c9a227',
-  Venus: '#c060a0',
-  Saturn: '#5577b8',
-  Rahu: '#8f5baa',
-  Ketu: '#7d8a94',
-  Ascendant: '#c9a227',
-};
+const PC = PLANET_THEME_COLORS;
 
 /* Canonical glyphs */
 const GLYPHS: Record<string, string> = {
@@ -260,7 +251,7 @@ export default function DivisionalCharts({ chart }: Props) {
                       padding: '0.4rem 0.65rem',
                       borderRadius: 'var(--radius-sm)',
                       cursor: 'pointer',
-                      background: isSelected ? `${PC[p]}22` : 'var(--surface-overlay)',
+                      background: isSelected ? withAlpha(PC[p], 18) : 'var(--surface-overlay)',
                       border: `1.5px solid ${isSelected ? PC[p] : 'var(--border-subtle)'}`,
                       transition: 'all 0.15s',
                       flex: '1 1 auto',
@@ -294,8 +285,8 @@ export default function DivisionalCharts({ chart }: Props) {
                   style={{
                     padding: '0.95rem 1.1rem',
                     borderRadius: 'var(--radius-sm)',
-                    background: `${PC[p]}11`,
-                    border: `1.5px solid ${PC[p]}44`,
+                    background: withAlpha(PC[p], 10),
+                    border: `1.5px solid ${withAlpha(PC[p], 35)}`,
                     display: 'grid',
                     gridTemplateColumns: 'auto 1fr',
                     gap: '0.75rem 1.25rem',
@@ -581,13 +572,13 @@ export default function DivisionalCharts({ chart }: Props) {
                     style={{
                       padding: '0.75rem 0.95rem',
                       borderRadius: 'var(--radius-sm)',
-                      background: `${PC[pi.planet] || 'var(--brand-400)'}0d`,
-                      border: `1px solid ${PC[pi.planet] || 'var(--brand-400)'}33`,
+                      background: withAlpha(PC[pi.planet] || 'var(--color-planet-sun)', 8),
+                      border: `1px solid ${withAlpha(PC[pi.planet] || 'var(--color-planet-sun)', 25)}`,
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '0.4rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                        <span style={{ fontSize: '1.25rem', color: PC[pi.planet] || 'var(--brand-400)', lineHeight: 1 }}>
+                        <span style={{ fontSize: '1.25rem', color: PC[pi.planet] || 'var(--color-text-accent)', lineHeight: 1 }}>
                           {GLYPHS[pi.planet] || '•'}
                         </span>
                         <span style={{ fontWeight: 700, fontSize: '0.92rem', color: 'var(--text-primary)' }}>

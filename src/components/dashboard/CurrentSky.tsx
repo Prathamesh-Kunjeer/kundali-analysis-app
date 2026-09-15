@@ -3,13 +3,11 @@ import { calculateCurrentSky, type TransitPosition } from '../../core/calculator
 import type { KundaliChart } from '../../core/models';
 import { PLANET_LABELS } from '../../core/constants';
 import { useLanguage } from '../../context/LanguageContext';
+import { PLANET_THEME_COLORS, withAlpha } from '../../utils/themeColors';
 
 interface Props { chart: KundaliChart }
 
-const PC: Record<string, string> = {
-  Sun:'#e07b39', Moon:'#7b9fd4', Mars:'#d94f4f', Mercury:'#4aad78',
-  Jupiter:'#c9a227', Venus:'#c060a0', Saturn:'#5577b8', Rahu:'#8f5baa', Ketu:'#7d8a94',
-};
+const PC = PLANET_THEME_COLORS;
 
 const DIGNITY_BADGE: Record<string, string> = {
   Exalted: 'badge-gold',
@@ -124,8 +122,8 @@ function PlanetCard({ p, pos, birthChart }: { p: string; pos: TransitPosition; b
           {/* Glowing Planetary Orb */}
           <div style={{
             width: 48, height: 48, borderRadius: '50%', flexShrink: 0,
-            background: `${PC[p]}18`, border: `2px solid ${PC[p]}`,
-            boxShadow: `0 0 14px ${PC[p]}33`,
+            background: withAlpha(PC[p], 15), border: `2px solid ${PC[p]}`,
+            boxShadow: `0 0 12px ${withAlpha(PC[p], 25)}`,
             display: 'grid', placeItems: 'center', fontSize: '1.4rem',
           }}>
             {meta?.symbol ?? '?'}
@@ -329,7 +327,7 @@ export default function CurrentSky({ chart }: Props) {
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               {lang === 'mr' ? 'वक्री ग्रह' : 'Retrograde Planets'}
             </div>
-            <div style={{ fontSize: '1.1rem', fontWeight: 800, color: retroPlanets.length > 0 ? '#b580ff' : 'var(--text-primary)', marginTop: '0.1rem' }}>
+            <div style={{ fontSize: '1.1rem', fontWeight: 800, color: retroPlanets.length > 0 ? 'var(--violet-300)' : 'var(--text-primary)', marginTop: '0.1rem' }}>
               {retroPlanets.length > 0 ? `${retroPlanets.length} (${retroPlanets.join(', ')})` : (lang === 'mr' ? 'कोणताही नाही' : 'None')}
             </div>
           </div>
@@ -338,7 +336,7 @@ export default function CurrentSky({ chart }: Props) {
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               {lang === 'mr' ? 'जन्म राशीत गोचर' : 'Transiting Natal Sign'}
             </div>
-            <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--brand-400)', marginTop: '0.1rem' }}>
+            <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-accent)', marginTop: '0.1rem' }}>
               {sameSignPlanets.length > 0 ? `${sameSignPlanets.length} (${sameSignPlanets.join(', ')})` : (lang === 'mr' ? 'कोणताही नाही' : 'None')}
             </div>
           </div>

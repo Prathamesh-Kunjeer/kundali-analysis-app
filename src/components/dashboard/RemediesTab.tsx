@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import type { KundaliChart, Planet, PlanetAnalysis } from '../../core/models';
 import { PLANET_LABELS } from '../../core/constants';
 import { useLanguage } from '../../context/LanguageContext';
+import { PLANET_THEME_COLORS, withAlpha } from '../../utils/themeColors';
 import {
   PLANET_REMEDIES,
   classifyRemedyStatus,
@@ -14,17 +15,7 @@ interface Props {
   chart: KundaliChart;
 }
 
-const PC: Record<string, string> = {
-  Sun: '#e07b39',
-  Moon: '#7b9fd4',
-  Mars: '#d94f4f',
-  Mercury: '#4aad78',
-  Jupiter: '#c9a227',
-  Venus: '#c060a0',
-  Saturn: '#5577b8',
-  Rahu: '#8f5baa',
-  Ketu: '#7d8a94',
-};
+const PC = PLANET_THEME_COLORS;
 
 const GLYPHS: Record<string, string> = {
   Sun: '☉',
@@ -136,7 +127,7 @@ export default function RemediesTab({ chart }: Props) {
           >
             <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
               <b style={{ color: 'var(--text-primary)' }}>{t('remedies.startWith')}</b>{' '}
-              <span style={{ fontWeight: 700, color: PC[topPriorityPlanet] || 'var(--brand-400)' }}>
+              <span style={{ fontWeight: 700, color: PC[topPriorityPlanet] || 'var(--color-text-accent)' }}>
                 {formatPlanet(topPriorityPlanet)} ({PLANET_LABELS[topPriorityPlanet]?.english})
               </span>
             </div>
@@ -295,7 +286,7 @@ function RemedyCard({ planet, analysis, statusType, isTopPriority }: RemedyCardP
               width: 42,
               height: 42,
               borderRadius: '50%',
-              background: `${planetColor}15`,
+              background: withAlpha(planetColor, 15),
               border: `1.5px solid ${planetColor}`,
               display: 'grid',
               placeItems: 'center',
@@ -476,7 +467,7 @@ function RemedyItemBox({ remedy, index }: { remedy: RemedyItem; index: number })
               fontWeight: 700,
               display: 'inline-grid',
               placeItems: 'center',
-              color: 'var(--brand-400)',
+              color: 'var(--color-text-accent)',
               flexShrink: 0,
               marginTop: '0.1rem',
             }}

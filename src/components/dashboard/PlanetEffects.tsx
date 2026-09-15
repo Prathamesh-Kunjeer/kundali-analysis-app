@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import type { KundaliChart, Planet, PlanetAnalysis } from '../../core/models';
 import { PLANET_LABELS } from '../../core/constants';
 import { useLanguage } from '../../context/LanguageContext';
+import { PLANET_THEME_COLORS, withAlpha } from '../../utils/themeColors';
 
 interface Props { chart: KundaliChart }
 
-const PC: Record<string, string> = {
-  Sun:'#e07b39', Moon:'#7b9fd4', Mars:'#d94f4f', Mercury:'#4aad78',
-  Jupiter:'#c9a227', Venus:'#c060a0', Saturn:'#5577b8', Rahu:'#8f5baa', Ketu:'#7d8a94',
-};
+const PC = PLANET_THEME_COLORS;
 
 // Plain English / Marathi for what each planet rules in life
 const PLANET_LIFE_AREAS: Record<string, string> = {
@@ -244,7 +242,7 @@ function PlanetCard({ p, analysis, chart }: { p: Planet; analysis: PlanetAnalysi
       <div style={{ display:'flex', alignItems:'center', gap:'1rem', marginBottom:'1rem' }}>
         <div style={{
           width:52, height:52, borderRadius:'50%', flexShrink:0,
-          background:`${PC[p]}18`, border:`2.5px solid ${PC[p]}`,
+          background: withAlpha(PC[p], 15), border:`2.5px solid ${PC[p]}`,
           display:'grid', placeItems:'center', fontSize:'1.5rem',
         }}>
           {meta.symbol}
@@ -428,9 +426,9 @@ export default function PlanetEffects({ chart }: Props) {
                     justifyContent:'space-between',
                     padding:'0.65rem 0.9rem',
                     borderRadius:'var(--radius-md)',
-                    background: isSel ? `${col}18` : 'var(--surface-raised)',
+                    background: isSel ? withAlpha(col, 16) : 'var(--surface-raised)',
                     border: `1.5px solid ${isSel ? col : 'var(--border-subtle)'}`,
-                    boxShadow: isSel ? `0 0 16px ${col}33` : 'var(--shadow-card)',
+                    boxShadow: isSel ? `0 0 12px ${withAlpha(col, 25)}` : 'var(--shadow-card)',
                     textAlign:'left',
                     cursor:'pointer',
                     transition:'all 0.18s ease',
@@ -439,7 +437,7 @@ export default function PlanetEffects({ chart }: Props) {
                   <div style={{ display:'flex', alignItems:'center', gap:'0.7rem' }}>
                     <div style={{
                       width:34, height:34, borderRadius:'50%',
-                      background:`${col}22`, border:`1.5px solid ${col}`,
+                      background: withAlpha(col, 18), border:`1.5px solid ${col}`,
                       display:'grid', placeItems:'center',
                       fontSize:'1.1rem', color:col, flexShrink:0,
                     }}>

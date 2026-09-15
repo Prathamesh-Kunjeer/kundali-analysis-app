@@ -373,10 +373,16 @@ export default function BirthForm({ onCalculate, isLoading, initialData, submitL
           <div style={{
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
             width: 54, height: 54, borderRadius: '50%', background: 'var(--brand-glow)',
-            border: '1.5px solid var(--border-gold)', fontSize: '1.6rem', marginBottom: '0.6rem',
+            border: '1.5px solid var(--border-gold)', marginBottom: '0.6rem',
             boxShadow: 'var(--shadow-glow-gold)'
           }}>
-            🔮
+            <img
+              src="/brand/logo-icon.png"
+              alt="Kundali Analysis Emblem"
+              width={38}
+              height={38}
+              style={{ objectFit: 'contain' }}
+            />
           </div>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', margin: '0 0 0.35rem' }}>
             {t('form.title')}

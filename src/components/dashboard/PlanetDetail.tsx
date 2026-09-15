@@ -1,14 +1,11 @@
 import React from 'react';
 import type { KundaliChart, Planet, PlanetAnalysis } from '../../core/models';
 import { PLANET_LABELS } from '../../core/constants';
+import { PLANET_THEME_COLORS } from '../../utils/themeColors';
 
 interface Props { chart: KundaliChart; planet: Planet; onClose: () => void; }
 
-const PLANET_COLORS: Record<string, string> = {
-  Sun:'#ff8c00', Moon:'#c0c0ff', Mars:'#ff4500', Mercury:'#32cd32',
-  Jupiter:'#ffd700', Venus:'#ff69b4', Saturn:'#4169e1', Rahu:'#8b008b',
-  Ketu:'#808080', Ascendant:'#d4a017',
-};
+const PLANET_COLORS = PLANET_THEME_COLORS;
 
 const TABS = ['Position', 'Condition', 'Aspects', 'Interpretation'] as const;
 type Tab = typeof TABS[number];
@@ -17,7 +14,7 @@ export default function PlanetDetail({ chart, planet, onClose }: Props) {
   const [tab, setTab] = React.useState<Tab>('Position');
   const analysis: PlanetAnalysis | undefined = chart.planetAnalysis[planet];
   const pos = chart.planets[planet];
-  const color = PLANET_COLORS[planet] || '#fff';
+  const color = PLANET_COLORS[planet] || 'var(--color-text-accent)';
 
   if (!analysis || !pos) return null;
 

@@ -8,39 +8,72 @@
 /* ─── DARK THEME (default) ──────────────────────────────────────────────────── */
 :root,
 [data-theme="dark"] {
-  /* Surfaces — Celestial obsidian & midnight slate */
-  --surface-base:    #0c0e14;
-  --surface-raised:  #141722;
-  --surface-overlay: #1b1f2e;
+  /* Unified Design Tokens — Dark Theme */
+  --color-bg-canvas:       #0C0E14;
+  --color-surface-card:    #141722;
+  --color-surface-subtle:  #1B1F2D;
+  --color-surface-active:  #252B3E;
+
+  --color-text-primary:    #F3F4F6;
+  --color-text-secondary:  #A1A7B5;
+  --color-text-muted:      #8B95A5;
+  --color-text-accent:     #F5D56E;
+
+  --color-accent-gold:      #E5B22E;
+  --color-accent-gold-soft: rgba(229, 178, 46, 0.15);
+
+  --color-border-subtle: rgba(229, 178, 46, 0.12);
+  --color-border-card:   rgba(229, 178, 46, 0.22);
+  --color-border-accent: #E5B22E;
+
+  --color-status-success:    #34D399;
+  --color-status-success-bg: rgba(52, 211, 153, 0.14);
+  --color-status-warning:    #FBBF24;
+  --color-status-warning-bg: rgba(251, 191, 36, 0.14);
+  --color-status-danger:     #F87171;
+  --color-status-danger-bg:  rgba(248, 113, 113, 0.14);
+
+  /* Planet Theme Colors (Dark: Luminous celestial tones) */
+  --color-planet-sun:       #E58544;
+  --color-planet-moon:      #9FB4D8;
+  --color-planet-mars:      #F87171;
+  --color-planet-mercury:   #4AAD78;
+  --color-planet-jupiter:   #FBBF24;
+  --color-planet-venus:     #D978B4;
+  --color-planet-saturn:    #7B9DE0;
+  --color-planet-rahu:      #A779C9;
+  --color-planet-ketu:      #9AA3AD;
+  --color-planet-ascendant: #E5B22E;
+
+  /* Legacy & Semantic Mapping */
+  --surface-base:    var(--color-bg-canvas);
+  --surface-raised:  var(--color-surface-card);
+  --surface-overlay: var(--color-surface-subtle);
   --surface-input:   #171a27;
 
-  /* Brand — Radiant celestial gold */
   --brand-500:  #d4a017;
-  --brand-400:  #e5b22e;
-  --brand-300:  #fcd874;
-  --brand-glow: rgba(229, 178, 46, 0.16);
+  --brand-400:  var(--color-accent-gold);
+  --brand-300:  var(--color-text-accent);
+  --brand-glow: var(--color-accent-gold-soft);
   --brand-glow-subtle: rgba(229, 178, 46, 0.08);
 
-  /* Semantic subtle colors */
-  --semantic-supportive-fg:     #68d391;
-  --semantic-supportive-bg:     rgba(40, 110, 59, 0.18);
-  --semantic-supportive-border: rgba(40, 110, 59, 0.38);
+  --semantic-supportive-fg:     var(--color-status-success);
+  --semantic-supportive-bg:     var(--color-status-success-bg);
+  --semantic-supportive-border: rgba(52, 211, 153, 0.35);
 
-  --semantic-challenging-fg:     #fc8181;
-  --semantic-challenging-bg:     rgba(168, 54, 38, 0.18);
-  --semantic-challenging-border: rgba(168, 54, 38, 0.38);
+  --semantic-challenging-fg:     var(--color-status-danger);
+  --semantic-challenging-bg:     var(--color-status-danger-bg);
+  --semantic-challenging-border: rgba(248, 113, 113, 0.35);
 
-  --semantic-neutral-fg:     #f6ad55;
-  --semantic-neutral-bg:     rgba(156, 106, 21, 0.18);
-  --semantic-neutral-border: rgba(156, 106, 21, 0.38);
+  --semantic-neutral-fg:     var(--color-status-warning);
+  --semantic-neutral-bg:     var(--color-status-warning-bg);
+  --semantic-neutral-border: rgba(251, 191, 36, 0.35);
 
-  /* Semantic planet tints */
-  --benefic-bg:  rgba(40, 110, 59, 0.18);
-  --benefic-fg:  #68d391;
-  --malefic-bg:  rgba(168, 54, 38, 0.18);
-  --malefic-fg:  #fc8181;
+  --benefic-bg:  var(--color-status-success-bg);
+  --benefic-fg:  var(--color-status-success);
+  --malefic-bg:  var(--color-status-danger-bg);
+  --malefic-fg:  var(--color-status-danger);
 
-  /* House element tints */
   --elem-fire:  rgba(237, 100, 37, 0.16);
   --elem-earth: rgba(104, 117, 72, 0.16);
   --elem-air:   rgba(66, 153, 225, 0.16);
@@ -50,79 +83,104 @@
   --elem-air-fg:   #63b3ed;
   --elem-water-fg: #7f9cf5;
 
-  /* Status */
-  --success-bg: rgba(40, 110, 59, 0.18);
-  --success-fg: #68d391;
-  --danger-bg:  rgba(168, 54, 38, 0.18);
-  --danger-fg:  #fc8181;
-  --warn-bg:    rgba(156, 106, 21, 0.18);
-  --warn-fg:    #f6ad55;
+  --success-bg: var(--color-status-success-bg);
+  --success-fg: var(--color-status-success);
+  --danger-bg:  var(--color-status-danger-bg);
+  --danger-fg:  var(--color-status-danger);
+  --warn-bg:    var(--color-status-warning-bg);
+  --warn-fg:    var(--color-status-warning);
 
-  /* Text */
-  --text-primary:   #f3f4f6;
-  --text-secondary: #b8bac4;
-  --text-muted:     #7e8494;
+  --text-primary:   var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted:     var(--color-text-muted);
   --text-inverse:   #0c0e14;
 
-  /* Borders */
-  --border-brand:  rgba(229, 178, 46, 0.45);
-  --border-subtle: rgba(229, 216, 184, 0.15);
-  --border-strong: rgba(229, 216, 184, 0.28);
+  --border-brand:  var(--color-border-accent);
+  --border-subtle: var(--color-border-subtle);
+  --border-strong: var(--color-border-card);
 
-  /* Shadows */
   --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 2px 6px -1px rgba(0, 0, 0, 0.3);
-  --shadow-card-hover: 0 12px 32px -4px rgba(0, 0, 0, 0.65), 0 4px 12px -2px rgba(229, 178, 46, 0.18);
+  --shadow-card-hover: 0 8px 24px -3px rgba(0, 0, 0, 0.65), 0 2px 8px -1px rgba(229, 178, 46, 0.14);
   --shadow-elevated: 0 16px 40px -6px rgba(0, 0, 0, 0.75);
 
-  /* Background gradients */
   --bg-body-gradient:
     radial-gradient(ellipse 70% 45% at 50% -10%, rgba(229, 178, 46, 0.08) 0%, transparent 65%),
     radial-gradient(ellipse 60% 40% at 90% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 55%),
     radial-gradient(ellipse 50% 50% at 10% 90%, rgba(56, 161, 105, 0.04) 0%, transparent 55%);
 
-  /* Scrollbar */
   --scrollbar-track: #141722;
   --scrollbar-thumb: #2d3040;
-
-  /* Toggle track */
   --toggle-track: #262938;
 }
 
 /* ─── LIGHT THEME ──────────────────────────────────────────────────────────── */
 [data-theme="light"] {
-  /* Surfaces — Warm ivory & pure white cards */
-  --surface-base:    #F6F2E9; /* Primary background */
-  --surface-raised:  #FFFFFF; /* Primary surface/cards */
-  --surface-overlay: #FBF8F1; /* Secondary surface */
+  /* Unified Design Tokens — Light Theme */
+  --color-bg-canvas:       #F6F2E9;
+  --color-surface-card:    #FFFFFF;
+  --color-surface-subtle:  #EFE9DC;
+  --color-surface-active:  #E8E0D0;
+
+  --color-text-primary:    #24211D;
+  --color-text-secondary:  #5E584E;
+  --color-text-muted:      #544E44;
+  --color-text-accent:     #8F6200;
+
+  --color-accent-gold:      #C99716;
+  --color-accent-gold-soft: rgba(201, 151, 22, 0.14);
+
+  --color-border-subtle: #EBE2D0;
+  --color-border-card:   #E0D4BA;
+  --color-border-accent: #C99716;
+
+  --color-status-success:    #1B7A53;
+  --color-status-success-bg: rgba(27, 122, 83, 0.08);
+  --color-status-warning:    #9E6700;
+  --color-status-warning-bg: rgba(158, 103, 0, 0.08);
+  --color-status-danger:     #B83A2E;
+  --color-status-danger-bg:  rgba(184, 58, 46, 0.08);
+
+  /* Planet Theme Colors (Light: Rich, accessible >=4.5:1 contrast) */
+  --color-planet-sun:       #C25B12;
+  --color-planet-moon:      #2B6CB0;
+  --color-planet-mars:      #C53030;
+  --color-planet-mercury:   #1E7E4E;
+  --color-planet-jupiter:   #976508;
+  --color-planet-venus:     #9B2C6E;
+  --color-planet-saturn:    #2C5282;
+  --color-planet-rahu:      #6B46C1;
+  --color-planet-ketu:      #4A5568;
+  --color-planet-ascendant: #8F6200;
+
+  /* Legacy & Semantic Mapping */
+  --surface-base:    var(--color-bg-canvas);
+  --surface-raised:  var(--color-surface-card);
+  --surface-overlay: var(--color-surface-subtle);
   --surface-input:   #FFFFFF;
 
-  /* Brand — Accent gold */
   --brand-500:  #B5840F;
-  --brand-400:  #C99716; /* Accent gold */
-  --brand-300:  #DFC058;
-  --brand-glow: rgba(201, 151, 22, 0.12);
+  --brand-400:  var(--color-accent-gold);
+  --brand-300:  var(--color-text-accent);
+  --brand-glow: var(--color-accent-gold-soft);
   --brand-glow-subtle: rgba(201, 151, 22, 0.05);
 
-  /* Semantic subtle colors */
-  --semantic-supportive-fg:     #23693D;
+  --semantic-supportive-fg:     var(--color-status-success);
   --semantic-supportive-bg:     #EDF7EE;
   --semantic-supportive-border: #BCDDBE;
 
-  --semantic-challenging-fg:     #A83626;
+  --semantic-challenging-fg:     var(--color-status-danger);
   --semantic-challenging-bg:     #FDF3F1;
   --semantic-challenging-border: #F3C3BC;
 
-  --semantic-neutral-fg:     #9C6A15;
+  --semantic-neutral-fg:     var(--color-status-warning);
   --semantic-neutral-bg:     #FEF9EB;
   --semantic-neutral-border: #EED79D;
 
-  /* Semantic planet tints */
   --benefic-bg:  #EDF7EE;
-  --benefic-fg:  #23693D;
+  --benefic-fg:  var(--color-status-success);
   --malefic-bg:  #FDF3F1;
-  --malefic-fg:  #A83626;
+  --malefic-fg:  var(--color-status-danger);
 
-  /* House element tints */
   --elem-fire:  rgba(192, 75, 24, 0.08);
   --elem-earth: rgba(72, 85, 42, 0.08);
   --elem-air:   rgba(37, 99, 170, 0.08);
@@ -132,28 +190,24 @@
   --elem-air-fg:   #235C9E;
   --elem-water-fg: #312E94;
 
-  /* Status */
   --success-bg: #EDF7EE;
-  --success-fg: #23693D;
+  --success-fg: var(--color-status-success);
   --danger-bg:  #FDF3F1;
-  --danger-fg:  #A83626;
+  --danger-fg:  var(--color-status-danger);
   --warn-bg:    #FEF9EB;
-  --warn-fg:    #9C6A15;
+  --warn-fg:    var(--color-status-warning);
 
-  /* Text hierarchy */
-  --text-primary:   #24211D; /* Dark charcoal - primary headings, section headings, card titles */
-  --text-secondary: #4A463F; /* Dark warm-grey - body text & explanations */
-  --text-muted:     #6F6A62; /* Muted grey - metadata & helper text */
+  --text-primary:   var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted:     var(--color-text-muted);
   --text-inverse:   #F6F2E9;
 
-  /* Borders */
-  --border-brand:  #C99716;
-  --border-subtle: #E5D8B8; /* Borders */
-  --border-strong: #D6C8A5;
+  --border-brand:  var(--color-border-accent);
+  --border-subtle: var(--color-border-subtle);
+  --border-strong: var(--color-border-card);
 
-  /* Clean subtle card shadows */
   --shadow-card: 0 1px 3px rgba(36, 33, 29, 0.05), 0 3px 10px rgba(36, 33, 29, 0.03);
-  --shadow-card-hover: 0 4px 12px rgba(36, 33, 29, 0.08), 0 8px 24px rgba(201, 151, 22, 0.07);
+  --shadow-card-hover: 0 4px 12px rgba(36, 33, 29, 0.08), 0 6px 20px rgba(201, 151, 22, 0.06);
   --shadow-elevated: 0 10px 28px rgba(36, 33, 29, 0.10);
 
   --bg-body-gradient: none;
@@ -170,38 +224,37 @@
   --font-devanagari: 'Noto Sans Devanagari', sans-serif;
   --font-mono:       'SF Mono', 'Fira Code', monospace;
 
+  --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  --gold-500:    var(--brand-500);
-  --gold-400:    var(--brand-400);
-  --gold-300:    var(--brand-300);
-  --gold-glow:   var(--brand-glow);
+  --gold-500:    var(--color-accent-gold);
+  --gold-400:    var(--color-accent-gold);
+  --gold-300:    var(--color-text-accent);
+  --gold-glow:   var(--color-accent-gold-soft);
 
-  --crimson-300: var(--semantic-challenging-fg);
-  --crimson-400: var(--semantic-challenging-fg);
-  --crimson-100: var(--semantic-challenging-bg);
+  --crimson-300: var(--color-status-danger);
+  --crimson-400: var(--color-status-danger);
+  --crimson-100: var(--color-status-danger-bg);
 
-  --teal-300: var(--semantic-supportive-fg);
-  --teal-400: var(--semantic-supportive-fg);
-  --teal-100: var(--semantic-supportive-bg);
+  --teal-300: var(--color-status-success);
+  --teal-400: var(--color-status-success);
+  --teal-100: var(--color-status-success-bg);
 
   --violet-300: #a78bfa;
   --violet-100: rgba(139, 92, 246, 0.12);
 
-  --bg-900: var(--surface-base);
-  --bg-800: var(--surface-raised);
-  --bg-700: var(--surface-raised);
-  --bg-600: var(--surface-overlay);
-  --bg-500: var(--surface-overlay);
+  --bg-900: var(--color-bg-canvas);
+  --bg-800: var(--color-surface-card);
+  --bg-700: var(--color-surface-card);
+  --bg-600: var(--color-surface-subtle);
+  --bg-500: var(--color-surface-subtle);
 
-  --border-gold:   var(--border-brand);
-  --border-subtle: var(--border-subtle);
+  --border-gold:   var(--color-border-accent);
 
-  --shadow-gold: 0 0 16px var(--brand-glow), 0 2px 8px rgba(0,0,0,0.15);
-  --shadow-card: var(--shadow-card);
+  --shadow-gold: 0 0 14px var(--color-accent-gold-soft), 0 2px 6px rgba(0,0,0,0.12);
 }
 
 /* ─── Reset ─────────────────────────────────────────────────────────────────── */
@@ -245,7 +298,7 @@ p, li { color: var(--text-secondary); line-height: 1.65; }
 /* Dedicated hierarchy classes: TITLE → INSIGHT → EXPLANATION → METADATA */
 .insight-title,
 .card-insight-title {
-  color: var(--brand-400); /* Gold for important insights */
+  color: var(--color-text-accent); /* Legible accent bronze/gold with high contrast */
   font-weight: 600;
   font-size: 0.88rem;
   letter-spacing: 0.01em;
@@ -253,7 +306,7 @@ p, li { color: var(--text-secondary); line-height: 1.65; }
 
 .explanation-text,
 .card-explanation {
-  color: var(--text-secondary); /* Dark warm-grey */
+  color: var(--color-text-secondary); /* Dark warm-grey in light, readable in dark */
   font-size: 0.84rem;
   line-height: 1.65;
 }
@@ -261,8 +314,8 @@ p, li { color: var(--text-secondary); line-height: 1.65; }
 .metadata-text,
 .card-metadata,
 .helper-text {
-  color: var(--text-muted); /* Muted grey */
-  font-size: 0.74rem;
+  color: var(--color-text-muted); /* High-contrast muted grey (>=4.5:1 WCAG AA) */
+  font-size: 0.76rem;
   font-weight: 500;
 }
 
@@ -478,41 +531,256 @@ p, li { color: var(--text-secondary); line-height: 1.65; }
   padding: 1.25rem 1.25rem 1.1rem;
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  justify-content: center;
   background: linear-gradient(180deg, var(--brand-glow-subtle) 0%, transparent 100%);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease;
 }
 
-.sidebar-brand-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: radial-gradient(circle at 35% 35%, var(--brand-300), var(--brand-500));
-  box-shadow: 0 0 16px var(--brand-glow), inset 0 1px 2px rgba(255,255,255,0.4);
-  display: grid;
-  place-items: center;
-  font-size: 1.35rem;
-  color: #1a1200;
+.sidebar-brand:hover {
+  background: linear-gradient(180deg, var(--brand-glow) 0%, var(--surface-raised) 100%);
+}
+
+.sidebar-brand-full-logo {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(201, 151, 22, 0.12));
+  transition: transform 0.2s ease;
+}
+
+.sidebar-brand:hover .sidebar-brand-full-logo {
+  transform: scale(1.02);
+}
+
+.sidebar-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.45rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: var(--color-accent-gold-soft);
+  border: 1px solid var(--color-border-accent);
+}
+
+.sidebar-brand-badge-text {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-accent);
+}
+
+/* Dark mode adjustment for transparent full logo text contrast */
+.dark .sidebar-brand-full-logo {
+  filter: drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.6)) drop-shadow(0 3px 12px rgba(201, 151, 22, 0.28));
+}
+
+/* Topbar mobile brand header */
+.topbar-mobile-brand {
+  display: none;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.topbar-mobile-brand-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
   flex-shrink: 0;
+  filter: drop-shadow(0 1px 4px rgba(201, 151, 22, 0.2));
 }
 
-.sidebar-brand-text h1 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  color: var(--text-primary);
-  margin: 0;
+.topbar-mobile-brand-text {
+  display: flex;
+  flex-direction: column;
   line-height: 1.15;
 }
 
-.sidebar-brand-text p {
-  font-size: 0.68rem;
-  color: var(--brand-400);
-  margin: 0.15rem 0 0;
-  letter-spacing: 0.06em;
+.topbar-mobile-brand-title {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.topbar-mobile-brand-sub {
+  font-size: 0.62rem;
   font-weight: 600;
+  color: var(--color-text-accent);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+/* Brand Loading Splash Screen */
+.brand-splash-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 360px;
+  padding: 2.5rem 1.5rem;
+  width: 100%;
+}
+
+.brand-splash-container.full-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--surface-base);
+  z-index: 9999;
+}
+
+.brand-splash-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 380px;
+  padding: 2.25rem 2rem;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card), 0 0 32px var(--brand-glow-subtle);
+  animation: splashFadeIn 0.35s ease-out;
+}
+
+.brand-splash-emblem-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.brand-splash-emblem {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+  z-index: 2;
+  filter: drop-shadow(0 0 16px rgba(201, 151, 22, 0.35));
+  animation: emblemPulse 2.4s ease-in-out infinite alternate;
+}
+
+.brand-splash-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border-accent);
+  border-top-color: transparent;
+  animation: ringSpin 2s linear infinite;
+  opacity: 0.8;
+}
+
+.brand-splash-wordmark {
+  margin-bottom: 1.25rem;
+}
+
+.brand-splash-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin: 0 0 0.3rem;
+  line-height: 1.2;
+}
+
+.brand-splash-tagline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--color-text-accent);
+  text-transform: uppercase;
+}
+
+.brand-dot {
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+
+.brand-splash-status {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.brand-splash-bar {
+  width: 100%;
+  height: 3px;
+  background: var(--surface-overlay);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.brand-splash-progress {
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(90deg, var(--color-accent-gold), #e8c05c);
+  border-radius: 999px;
+  animation: progressSlide 1.5s ease-in-out infinite alternate;
+}
+
+.brand-splash-text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 500;
+}
+
+.brand-splash-product {
+  margin-top: 1.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+@keyframes splashFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes emblemPulse {
+  0% { transform: scale(1); filter: drop-shadow(0 0 12px rgba(201, 151, 22, 0.25)); }
+  100% { transform: scale(1.05); filter: drop-shadow(0 0 22px rgba(201, 151, 22, 0.55)); }
+}
+
+@keyframes ringSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes progressSlide {
+  0% { transform: translateX(0%); width: 25%; }
+  100% { transform: translateX(250%); width: 45%; }
+}
+
+/* Empty state logo styling */
+.empty-state-logo {
+  display: block;
+  margin: 0 auto 1.25rem;
+  max-width: 190px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 16px rgba(201, 151, 22, 0.2));
+}
+.dark .empty-state-logo {
+  filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.6)) drop-shadow(0 4px 18px rgba(201, 151, 22, 0.3));
 }
 
 .sidebar-nav {
@@ -561,11 +829,11 @@ p, li { color: var(--text-secondary); line-height: 1.65; }
 }
 
 .sidebar-item.active {
-  color: var(--brand-400);
-  background: var(--brand-glow);
-  border-color: var(--border-brand);
+  color: var(--color-text-accent);
+  background: var(--color-accent-gold-soft);
+  border-color: var(--color-border-accent);
   font-weight: 600;
-  box-shadow: 0 2px 8px var(--brand-glow);
+  box-shadow: 0 2px 8px var(--color-accent-gold-soft);
 }
 
 .sidebar-item.active::before {
@@ -576,8 +844,8 @@ p, li { color: var(--text-secondary); line-height: 1.65; }
   bottom: 15%;
   width: 3px;
   border-radius: 0 3px 3px 0;
-  background: var(--brand-400);
-  box-shadow: 0 0 8px var(--brand-400);
+  background: var(--color-accent-gold);
+  box-shadow: 0 0 8px var(--color-accent-gold);
 }
 
 .sidebar-item-icon {
@@ -904,9 +1172,9 @@ p, li { color: var(--text-secondary); line-height: 1.65; }
 .tab-btn:hover { color: var(--text-primary); background: var(--surface-overlay); }
 
 .tab-btn.active {
-  color: var(--brand-400);
-  border-bottom-color: var(--brand-400);
-  background: var(--brand-glow);
+  color: var(--color-text-accent);
+  border-bottom-color: var(--color-border-accent);
+  background: var(--color-accent-gold-soft);
   font-weight: 600;
 }
 
@@ -978,9 +1246,9 @@ p, li { color: var(--text-secondary); line-height: 1.65; }
 }
 
 .badge-gold {
-  background: var(--brand-glow);
-  color: var(--brand-400);
-  border: 1px solid var(--border-brand);
+  background: var(--color-accent-gold-soft);
+  color: var(--color-text-accent);
+  border: 1px solid var(--color-border-accent);
 }
 
 .badge-violet {
@@ -996,16 +1264,16 @@ p, li { color: var(--text-secondary); line-height: 1.65; }
 }
 
 /* ─── Planet colors ─────────────────────────────────────────────────────────── */
-.planet-sun      { color: #e07b39; }
-.planet-moon     { color: #9fb4d8; }
-.planet-mars     { color: #e05252; }
-.planet-mercury  { color: #52ae7a; }
-.planet-jupiter  { color: #c9a227; }
-.planet-venus    { color: #c77daa; }
-.planet-saturn   { color: #6080b8; }
-.planet-rahu     { color: #9e6bb5; }
-.planet-ketu     { color: #8a9199; }
-.planet-ascendant{ color: var(--brand-400); }
+.planet-sun      { color: var(--color-planet-sun); }
+.planet-moon     { color: var(--color-planet-moon); }
+.planet-mars     { color: var(--color-planet-mars); }
+.planet-mercury  { color: var(--color-planet-mercury); }
+.planet-jupiter  { color: var(--color-planet-jupiter); }
+.planet-venus    { color: var(--color-planet-venus); }
+.planet-saturn   { color: var(--color-planet-saturn); }
+.planet-rahu     { color: var(--color-planet-rahu); }
+.planet-ketu     { color: var(--color-planet-ketu); }
+.planet-ascendant{ color: var(--color-planet-ascendant); }
 
 .planet-dot {
   width: 8px;
@@ -1225,14 +1493,14 @@ select.form-control {
 .elem-water { background: var(--elem-water); color: var(--elem-water-fg); }
 
 /* ─── Utilities ─────────────────────────────────────────────────────────────── */
-.text-gold     { color: var(--brand-400); }
-.text-teal     { color: var(--success-fg); }
-.text-crimson  { color: var(--danger-fg); }
-.text-muted    { color: var(--text-muted); }
-.text-secondary{ color: var(--text-secondary); }
-.text-primary  { color: var(--text-primary); }
+.text-gold     { color: var(--color-text-accent); }
+.text-teal     { color: var(--color-status-success); }
+.text-crimson  { color: var(--color-status-danger); }
+.text-muted    { color: var(--color-text-muted); }
+.text-secondary{ color: var(--color-text-secondary); }
+.text-primary  { color: var(--color-text-primary); }
 .text-sm   { font-size: 0.82rem; }
-.text-xs   { font-size: 0.72rem; }
+.text-xs   { font-size: 0.74rem; }
 .text-right{ text-align: right; }
 .font-display { font-family: var(--font-display); }
 .font-bold    { font-weight: 700; }
@@ -1255,18 +1523,46 @@ select.form-control {
 .rounded { border-radius: var(--radius-sm); }
 .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+/* ─── Accessible Focus Indicators ─────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-border-accent);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.btn:focus-visible,
+.tab-btn:focus-visible,
+.sidebar-item:focus-visible,
+.card-interactive:focus-visible {
+  outline: 2px solid var(--color-border-accent);
+  outline-offset: 2px;
+}
+
 /* ─── Devanagari (Marathi) Typography ───────────────────────────────────────── */
 [lang="mr"] {
-  line-height: 1.52;
+  line-height: 1.55;
+}
+[lang="mr"] p,
+[lang="mr"] li,
+[lang="mr"] .explanation-text,
+[lang="mr"] .card-explanation {
+  line-height: 1.62;
 }
 [lang="mr"] .tab-btn {
   font-family: var(--font-devanagari), var(--font-body);
   font-size: 0.88rem;
+  line-height: 1.45;
 }
 [lang="mr"] .app-header h1,
 [lang="mr"] .card-title,
 [lang="mr"] h1,
 [lang="mr"] h2,
-[lang="mr"] h3 {
+[lang="mr"] h3,
+[lang="mr"] h4 {
   font-family: var(--font-devanagari), var(--font-body);
+  line-height: 1.4;
 }

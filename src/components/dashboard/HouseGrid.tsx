@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import type { KundaliChart, Planet } from '../../core/models';
 import { PLANET_LABELS } from '../../core/constants';
+import { PLANET_THEME_COLORS, withAlpha } from '../../utils/themeColors';
 
 interface Props { chart: KundaliChart; }
 
-const PLANET_COLORS: Record<string, string> = {
-  Sun:'#ff8c00', Moon:'#c0c0ff', Mars:'#ff4500', Mercury:'#32cd32',
-  Jupiter:'#ffd700', Venus:'#ff69b4', Saturn:'#4169e1', Rahu:'#8b008b',
-  Ketu:'#808080', Ascendant:'#d4a017',
-};
+const PLANET_COLORS = PLANET_THEME_COLORS;
 
 export default function HouseGrid({ chart }: Props) {
   const [selectedHouse, setSelectedHouse] = useState<number | null>(null);
@@ -60,17 +57,21 @@ export default function HouseGrid({ chart }: Props) {
                     Lord: <span style={{ color: PLANET_COLORS[house.lord] }}>{PLANET_LABELS[house.lord].symbol}</span>
                   </div>
                   <div className="flex gap-1" style={{ flexWrap: 'wrap' }}>
-                    {house.planets.map(p => (
-                      <span key={p} style={{
-                        fontSize: '0.75rem', fontWeight: 700,
-                        color: PLANET_COLORS[p] || '#fff',
-                        padding: '1px 4px',
-                        background: (PLANET_COLORS[p] || '#fff') + '18',
-                        borderRadius: 3,
-                      }}>
-                        {PLANET_LABELS[p].symbol}
-                      </span>
-                    ))}
+                    {house.planets.map(p => {
+                      const pCol = PLANET_COLORS[p] || 'var(--text-primary)';
+                      return (
+                        <span key={p} style={{
+                          fontSize: '0.75rem', fontWeight: 700,
+                          color: pCol,
+                          padding: '1px 5px',
+                          background: withAlpha(pCol, 14),
+                          border: `1px solid ${withAlpha(pCol, 30)}`,
+                          borderRadius: 3,
+                        }}>
+                          {PLANET_LABELS[p].symbol}
+                        </span>
+                      );
+                    })}
                     {house.planets.length === 0 && <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Empty</span>}
                   </div>
                   <div className="flex gap-1 mt-1" style={{ flexWrap: 'wrap' }}>

@@ -26,6 +26,7 @@ import Panchang       from './components/dashboard/Panchang';
 import PlanetTable    from './components/dashboard/PlanetTable';
 import DivisionalCharts from './components/charts/DivisionalCharts';
 import RemediesTab   from './components/dashboard/RemediesTab';
+import BrandLoadingSplash from './components/common/BrandLoadingSplash';
 
 // ─── Tab config ───────────────────────────────────────────────────────────────
 
@@ -645,12 +646,24 @@ function AppContent() {
 
       {/* ─── DESKTOP & MOBILE SIDEBAR ────────────────────────────────────── */}
       <aside className={`app-sidebar ${sidebarOpen ? 'open' : ''}`}>
-        {/* Brand */}
-        <div className="sidebar-brand">
-          <div className="sidebar-brand-icon">🔮</div>
-          <div className="sidebar-brand-text">
-            <h1>{t('header.title')}</h1>
-            <p>{t('header.subtitle')}</p>
+        {/* Official Brand Header */}
+        <div
+          className="sidebar-brand"
+          onClick={() => { goTab('overview'); setSidebarOpen(false); }}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { goTab('overview'); setSidebarOpen(false); } }}
+          title="Kundali Analysis — JyotishVeda Studio"
+        >
+          <img
+            src="/brand/logo-full-transparent.png"
+            alt="Kundali Analysis — JyotishVeda Studio"
+            className="sidebar-brand-full-logo"
+            width={180}
+            height={135}
+          />
+          <div className="sidebar-brand-badge">
+            <span className="sidebar-brand-badge-text">JyotishVeda Studio</span>
           </div>
         </div>
 
@@ -758,8 +771,30 @@ function AppContent() {
               ☰
             </button>
 
+            {/* Mobile Compact Brand Variant */}
+            <div
+              className="topbar-mobile-brand"
+              onClick={() => goTab('overview')}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') goTab('overview'); }}
+              title="Kundali Analysis"
+            >
+              <img
+                src="/brand/logo-icon.png"
+                alt="Kundali Analysis Logo"
+                className="topbar-mobile-brand-icon"
+                width={32}
+                height={32}
+              />
+              <div className="topbar-mobile-brand-text">
+                <span className="topbar-mobile-brand-title">Kundali Analysis</span>
+                <span className="topbar-mobile-brand-sub">JyotishVeda</span>
+              </div>
+            </div>
+
             {/* Current View Breadcrumb */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div className="topbar-breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ fontSize: '1.2rem' }}>{showForm ? '📝' : activeTabMeta?.icon}</span>
               <span style={{ fontWeight: 700, fontSize: '0.96rem', color: 'var(--text-primary)', letterSpacing: '0.02em' }}>
                 {showForm ? (activeProf ? `${t('header.edit')} — ${activeProf.name}` : t('profile.new')) : activeTabMeta?.label}
@@ -876,9 +911,7 @@ function AppContent() {
           {chart && !showForm && tab !== 'profiles' && (
             <>
               {isLoading ? (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 300 }}>
-                  <div className="spinner" />
-                </div>
+                <BrandLoadingSplash message={t('common.loading')} />
               ) : (
                 <div className="fade-in">
                   {tab === 'overview'  && (
@@ -909,7 +942,13 @@ function AppContent() {
           {/* Empty state — no chart, no form, not on profiles */}
           {!chart && !showForm && tab !== 'profiles' && (
             <div className="empty-state">
-              <div className="empty-icon">🔮</div>
+              <img
+                src="/brand/logo-full-transparent.png"
+                alt="Kundali Analysis"
+                className="empty-state-logo"
+                width={190}
+                height={142}
+              />
               <h3>{t('common.emptyTitle')}</h3>
               <p>{t('common.emptyDesc')}</p>
               <button className="btn btn-primary mt-3" onClick={() => setShowForm(true)}>

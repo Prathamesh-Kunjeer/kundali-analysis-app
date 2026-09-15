@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import type { KundaliChart, DashaPeriod } from '../../core/models';
 import { PLANET_LABELS } from '../../core/constants';
+import { PLANET_THEME_COLORS, withAlpha } from '../../utils/themeColors';
 
 interface Props { chart: KundaliChart; }
 
-const PLANET_COLORS: Record<string, string> = {
-  Sun:'#ff8c00', Moon:'#c0c0ff', Mars:'#ff4500', Mercury:'#32cd32',
-  Jupiter:'#ffd700', Venus:'#ff69b4', Saturn:'#4169e1', Rahu:'#8b008b',
-  Ketu:'#808080', Ascendant:'#d4a017',
-};
+const PLANET_COLORS = PLANET_THEME_COLORS;
 
 function fmt(d: Date) {
   return new Date(d).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
@@ -73,7 +70,7 @@ export default function DashaTimeline({ chart }: Props) {
             return (
               <div key={maha.planet}
                 title={`${PLANET_LABELS[maha.planet].english}: ${fmt(maha.startDate)} → ${fmt(maha.endDate)}`}
-                style={{ flex: `0 0 ${widthPct}%`, background: color + (maha.isCurrent ? 'ff' : '44'), borderRight: '1px solid rgba(0,0,0,0.3)', position: 'relative', cursor: 'pointer', transition: 'opacity 0.2s' }}
+                style={{ flex: `0 0 ${widthPct}%`, background: maha.isCurrent ? color : withAlpha(color, 40), borderRight: '1px solid rgba(0,0,0,0.3)', position: 'relative', cursor: 'pointer', transition: 'opacity 0.2s' }}
                 onClick={() => setExpanded(expanded === maha.planet ? null : maha.planet)}
               >
                 {widthPct > 8 && (
@@ -82,7 +79,7 @@ export default function DashaTimeline({ chart }: Props) {
                   </span>
                 )}
                 {maha.isCurrent && (
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, border: `2px solid ${color}`, borderRadius: 'var(--radius-sm)', pointerEvents: 'none' }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, border: '2px solid var(--color-border-accent)', borderRadius: 'var(--radius-sm)', pointerEvents: 'none' }} />
                 )}
               </div>
             );
