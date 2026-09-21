@@ -26,12 +26,13 @@ import Panchang       from './components/dashboard/Panchang';
 import PlanetTable    from './components/dashboard/PlanetTable';
 import DivisionalCharts from './components/charts/DivisionalCharts';
 import RemediesTab   from './components/dashboard/RemediesTab';
+import MatchingTab   from './components/dashboard/MatchingTab';
 import BrandLoadingSplash from './components/common/BrandLoadingSplash';
 
 // ─── Tab config ───────────────────────────────────────────────────────────────
 
 type Tab =
-  | 'overview' | 'effects' | 'remedies' | 'yogas' | 'sky' | 'chart' | 'varga' | 'drishti'
+  | 'overview' | 'matching' | 'effects' | 'remedies' | 'yogas' | 'sky' | 'chart' | 'varga' | 'drishti'
   | 'houses' | 'dasha' | 'doshas' | 'panchang' | 'planets' | 'profiles';
 
 // ─── Profile Manager UI ───────────────────────────────────────────────────────
@@ -595,6 +596,7 @@ function AppContent() {
 
   const primaryTabs = [
     { id: 'overview' as Tab, label: t('nav.overview'), icon: '🌟' },
+    { id: 'matching' as Tab, label: t('nav.matching'), icon: '💞' },
     { id: 'chart'    as Tab, label: t('nav.birthChart'), icon: '🔷' },
     { id: 'effects'  as Tab, label: t('nav.planetEffects'), icon: '🪐' },
     { id: 'remedies' as Tab, label: t('nav.remedies'), icon: '🌿' },
@@ -920,6 +922,15 @@ function AppContent() {
                       profile={activeProf}
                       onNavigate={(tItem) => goTab(tItem as Tab)}
                       onEditProfile={() => setShowForm(true)}
+                    />
+                  )}
+                  {tab === 'matching'  && (
+                    <MatchingTab
+                      chart={chart}
+                      profiles={profiles}
+                      activeProfile={activeProf}
+                      onCreateProfile={handleCreate}
+                      onSelectProfile={(p) => openProfile(p)}
                     />
                   )}
                   {tab === 'chart'     && <KundaliCharts chart={chart} />}
