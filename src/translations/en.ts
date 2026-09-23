@@ -367,6 +367,12 @@ export const en = {
   'yoga.yes': 'Yes',
   'yoga.no': 'No',
   'yoga.refreshTransits': 'Refresh Sky Transits',
+
+  // Persistent Astrology Disclaimer Banner
+  'disclaimer.badge': 'Guidance Note',
+  'disclaimer.text': 'Astrology is for guidance and reflection. Results may be inaccurate or incomplete. Do not rely on this app as the sole basis for important decisions.',
+  'disclaimer.ariaLabel': 'Astrology Guidance and Reflection Disclaimer',
 };
 
 export type TranslationKey = keyof typeof en;
+

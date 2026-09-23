@@ -1,19 +1,23 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
-export default function LanguageToggle() {
+interface LanguageToggleProps {
+  compact?: boolean;
+}
+
+export default function LanguageToggle({ compact = false }: LanguageToggleProps) {
   const { language, setLanguage } = useLanguage();
 
   return (
     <div
-      className="lang-toggle"
+      className={`lang-toggle ${compact ? 'lang-toggle--compact' : ''}`}
       style={{
         display: 'inline-flex',
         alignItems: 'center',
         background: 'var(--surface-overlay)',
         borderRadius: 'var(--radius-sm)',
         border: '1px solid var(--border-subtle)',
-        padding: '2px',
+        padding: compact ? '2px 3px' : '2px',
         gap: '2px',
         flexShrink: 0,
       }}
@@ -29,8 +33,8 @@ export default function LanguageToggle() {
           background: language === 'en' ? 'var(--brand-400)' : 'transparent',
           color: language === 'en' ? '#000000' : 'var(--text-secondary)',
           fontWeight: language === 'en' ? 700 : 500,
-          fontSize: '0.74rem',
-          padding: '0.24rem 0.5rem',
+          fontSize: compact ? '0.72rem' : '0.74rem',
+          padding: compact ? '0.2rem 0.42rem' : '0.24rem 0.5rem',
           borderRadius: '4px',
           cursor: 'pointer',
           transition: 'all 0.15s ease',
@@ -40,7 +44,8 @@ export default function LanguageToggle() {
         aria-pressed={language === 'en'}
         title="Switch to English"
       >
-        English
+        <span className="lang-label-full">English</span>
+        <span className="lang-label-short">EN</span>
       </button>
 
       <span style={{ color: 'var(--text-muted)', fontSize: '0.7rem', userSelect: 'none' }}>|</span>
@@ -54,8 +59,8 @@ export default function LanguageToggle() {
           background: language === 'mr' ? 'var(--brand-400)' : 'transparent',
           color: language === 'mr' ? '#000000' : 'var(--text-secondary)',
           fontWeight: language === 'mr' ? 700 : 500,
-          fontSize: '0.74rem',
-          padding: '0.24rem 0.5rem',
+          fontSize: compact ? '0.72rem' : '0.74rem',
+          padding: compact ? '0.2rem 0.42rem' : '0.24rem 0.5rem',
           borderRadius: '4px',
           cursor: 'pointer',
           transition: 'all 0.15s ease',
@@ -66,8 +71,10 @@ export default function LanguageToggle() {
         aria-pressed={language === 'mr'}
         title="मराठीमध्ये बदला"
       >
-        मराठी
+        <span className="lang-label-full">मराठी</span>
+        <span className="lang-label-short">MR</span>
       </button>
     </div>
   );
 }
+

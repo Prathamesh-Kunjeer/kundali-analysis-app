@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import type { KundaliChart, YogaResult } from '../../core/models';
 import { calculateCurrentSky } from '../../core/calculator';
 import {

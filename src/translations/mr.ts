@@ -369,4 +369,10 @@ export const mr: Record<TranslationKey, string> = {
   'yoga.yes': 'होय',
   'yoga.no': 'नाही',
   'yoga.refreshTransits': 'गोचर ग्रह ताजे करा',
+
+  // Persistent Astrology Disclaimer Banner
+  'disclaimer.badge': 'मार्गदर्शन सूचना',
+  'disclaimer.text': 'ज्योतिष हे केवळ मार्गदर्शन आणि आत्मचिंतनासाठी आहे. दर्शविलेली माहिती अपूर्ण किंवा सदोष असू शकते. कृपया महत्त्वाच्या निर्णयांसाठी केवळ या ॲपवर अवलंबून राहू नका.',
+  'disclaimer.ariaLabel': 'ज्योतिष मार्गदर्शन व चिंतन सूचना',
 };
+

@@ -28,6 +28,7 @@ import DivisionalCharts from './components/charts/DivisionalCharts';
 import RemediesTab   from './components/dashboard/RemediesTab';
 import MatchingTab   from './components/dashboard/MatchingTab';
 import BrandLoadingSplash from './components/common/BrandLoadingSplash';
+import AstrologyDisclaimer from './components/common/AstrologyDisclaimer';
 
 // ─── Tab config ───────────────────────────────────────────────────────────────
 
@@ -761,7 +762,7 @@ function AppContent() {
       <div className="app-viewport">
         {/* Top bar */}
         <header className="app-topbar">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          <div className="topbar-left">
             {/* Mobile Hamburger Toggle */}
             <button
               className="btn btn-ghost"
@@ -775,40 +776,36 @@ function AppContent() {
 
             {/* Mobile Compact Brand Variant */}
             <div
-              className="topbar-mobile-brand"
+              className="topbar-mobile-brand-compact"
               onClick={() => goTab('overview')}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') goTab('overview'); }}
-              title="Kundali Analysis"
+              title="Kundali Analysis — JyotishVeda"
             >
               <img
                 src="/brand/logo-icon.png"
                 alt="Kundali Analysis Logo"
                 className="topbar-mobile-brand-icon"
-                width={32}
-                height={32}
+                width={28}
+                height={28}
               />
-              <div className="topbar-mobile-brand-text">
-                <span className="topbar-mobile-brand-title">Kundali Analysis</span>
-                <span className="topbar-mobile-brand-sub">JyotishVeda</span>
-              </div>
             </div>
 
             {/* Current View Breadcrumb */}
-            <div className="topbar-breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontSize: '1.2rem' }}>{showForm ? '📝' : activeTabMeta?.icon}</span>
-              <span style={{ fontWeight: 700, fontSize: '0.96rem', color: 'var(--text-primary)', letterSpacing: '0.02em' }}>
+            <div className="topbar-breadcrumb">
+              <span className="topbar-breadcrumb-icon">{showForm ? '📝' : activeTabMeta?.icon}</span>
+              <span className="topbar-breadcrumb-text">
                 {showForm ? (activeProf ? `${t('header.edit')} — ${activeProf.name}` : t('profile.new')) : activeTabMeta?.label}
               </span>
             </div>
           </div>
 
           {/* Top Bar Right Actions */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            {/* Profile Quick Pill */}
-            {activeProf && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+          <div className="topbar-right">
+            {/* Desktop-only Quick Profile Actions */}
+            <div className="topbar-desktop-actions">
+              {activeProf && (
                 <button
                   className="btn btn-ghost"
                   style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}
@@ -817,38 +814,48 @@ function AppContent() {
                 >
                   {showForm ? `📊 ${t('header.chart')}` : `✏ ${t('header.edit')}`}
                 </button>
-              </div>
-            )}
-
-            {!activeProf && chart && (
-              <button
-                className="btn btn-ghost"
-                style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}
-                onClick={() => setShowForm(f => !f)}
-              >
-                {showForm ? `📊 ${t('header.chart')}` : `✏ ${t('header.edit')}`}
-              </button>
-            )}
-
-            {/* Profiles Manager Button */}
-            <button
-              className="btn btn-secondary"
-              style={{ position: 'relative', fontSize: '0.8rem', padding: '0.35rem 0.8rem' }}
-              onClick={() => goTab('profiles')}
-              title={t('header.manageProfiles')}
-            >
-              👤 {t('header.profiles')}
-              {profiles.length > 0 && (
-                <span style={{
-                  background: 'var(--brand-400)', color: '#000',
-                  borderRadius: '50%', width: 16, height: 16,
-                  fontSize: '0.6rem', fontWeight: 700, display: 'inline-grid', placeItems: 'center',
-                  marginLeft: '0.2rem',
-                }}>{profiles.length}</span>
               )}
-            </button>
+
+              {!activeProf && chart && (
+                <button
+                  className="btn btn-ghost"
+                  style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}
+                  onClick={() => setShowForm(f => !f)}
+                >
+                  {showForm ? `📊 ${t('header.chart')}` : `✏ ${t('header.edit')}`}
+                </button>
+              )}
+
+              {/* Profiles Manager Button */}
+              <button
+                className="btn btn-secondary"
+                style={{ position: 'relative', fontSize: '0.8rem', padding: '0.35rem 0.8rem' }}
+                onClick={() => goTab('profiles')}
+                title={t('header.manageProfiles')}
+              >
+                👤 {t('header.profiles')}
+                {profiles.length > 0 && (
+                  <span style={{
+                    background: 'var(--brand-400)', color: '#000',
+                    borderRadius: '50%', width: 16, height: 16,
+                    fontSize: '0.6rem', fontWeight: 700, display: 'inline-grid', placeItems: 'center',
+                    marginLeft: '0.2rem',
+                  }}>{profiles.length}</span>
+                )}
+              </button>
+            </div>
+
+            {/* Mobile Header Primary Controls: Language + Theme */}
+            <div className="topbar-mobile-controls">
+              <LanguageToggle compact />
+              <ThemeToggle isDark={isDark} onToggle={() => setIsDark(d => !d)} compact />
+            </div>
           </div>
         </header>
+
+        {/* Persistent Astrology Guidance Disclaimer Marquee */}
+        <AstrologyDisclaimer />
+
 
         {/* Main Canvas Area */}
         <main className="app-main-canvas">
