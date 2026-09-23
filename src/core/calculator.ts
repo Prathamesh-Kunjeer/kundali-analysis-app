@@ -254,6 +254,7 @@ export interface TransitPosition {
   isRetrograde: boolean;
   dmsString: string;
   dignity: import('./models').Dignity;
+  isCombust: boolean;
 }
 
 /**
@@ -304,6 +305,7 @@ export function calculateCurrentSky(
       isRetrograde: isRetro,
       dmsString: formatDMS(degInSgn),
       dignity,
+      isCombust,
     };
   }
 

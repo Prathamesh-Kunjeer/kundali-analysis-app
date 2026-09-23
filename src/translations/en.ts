@@ -342,6 +342,31 @@ export const en = {
   'matching.filterAll': 'All Planetary Pairs',
   'matching.filterCross': 'Cross-Chart Connections',
   'matching.filterSame': 'Same Planet Signs',
+
+  // Raj Yogas Real-Time Caution Guidance
+  'yoga.currentStatus': 'Current Status',
+  'yoga.cautionActive': 'Caution Currently Active',
+  'yoga.noCaution': 'No Current Caution',
+  'yoga.insufficientData': 'Insufficient Data',
+  'yoga.why': 'Why?',
+  'yoga.seeWhy': 'See Why',
+  'yoga.hideWhy': 'Hide Evidence',
+  'yoga.basedOnCurrentSky': 'Based on current planetary positions',
+  'yoga.calculated': 'Calculated',
+  'yoga.debilitated': 'Debilitated',
+  'yoga.combust': 'Combust',
+  'yoga.heavyMalefic': 'Heavy malefic influence',
+  'yoga.retrograde': 'Retrograde',
+  'yoga.birthStatus': 'Birth Chart Status',
+  'yoga.presentInBirth': 'Present in Birth Chart',
+  'yoga.currentSign': 'Current sign',
+  'yoga.degree': 'Degree',
+  'yoga.result': 'Result',
+  'yoga.traditionalMeaning': 'Traditional Meaning',
+  'yoga.classicalRule': 'Classical Guidance Rule',
+  'yoga.yes': 'Yes',
+  'yoga.no': 'No',
+  'yoga.refreshTransits': 'Refresh Sky Transits',
 };
 
 export type TranslationKey = keyof typeof en;
