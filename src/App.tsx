@@ -66,13 +66,12 @@ function ProfileManager({ profiles, activeId, onSelect, onCreate, onEdit, onDele
     <div style={{
       position:'fixed', inset:0, zIndex:500,
       background:'rgba(0,0,0,0.55)', display:'flex', alignItems:'center', justifyContent:'center',
-      padding:'1rem',
+      padding:'1rem', backdropFilter:'blur(8px)', WebkitBackdropFilter:'blur(8px)',
     }} onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
-      <div style={{
-        background:'var(--surface-raised)', borderRadius:'var(--radius-lg)',
+      <div className="glass-panel" style={{
         width:'100%', maxWidth:500, maxHeight:'90vh', overflow:'auto',
-        boxShadow:'var(--shadow-lg)',
       }}>
+
         {/* Header */}
         <div style={{ padding:'1rem 1.25rem', borderBottom:'1px solid var(--border-subtle)', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
           <div style={{ fontWeight:700, fontSize:'1rem', color:'var(--text-primary)' }}>{t('profile.title')}</div>
